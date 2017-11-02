@@ -1,0 +1,20 @@
+.scoreBoard {
+    position: fixed;
+    left: 0;
+    background: white;
+    top: 0;
+    bottom: 0;
+    z-index: 1000;
+    box-shadow: 2px 0px 2px gray;
+}
+.scoreBoard.collapsed {
+        width: 98px;
+}
+.highlighted {
+    border: 1px solid green;
+    box-shadow: 0 0 10px 0px #02bb00;
+}
+
+.hidden {
+    display:none;
+}

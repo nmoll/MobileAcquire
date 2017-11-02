@@ -1,0 +1,236 @@
+// http://ionicframework.com/docs/theming/
+
+
+// App Global Sass
+// --------------------------------------------------
+// Put style rules here that you want to apply globally. These
+// styles are for the entire app and not just one component.
+// Additionally, this file can be also used as an entry point
+// to import other Sass files to be included in the output CSS.
+//
+// Shared Sass variables, which can be used to adjust Ionic's
+// default Sass variables, belong in "theme/variables.scss".
+//
+// To declare rules for a specific mode, create a child rule
+// for the .md, .ios, or .wp mode classes. The mode class is
+// automatically applied to the <body> element in the app.
+
+/* Master Styles */
+// html {
+//     font-family: 'Segoe UI', 'Lucida Grande','Ubuntu','sans-serif';
+// }
+// h1 {
+//   color: #369;
+//   font-family: Arial, Helvetica, sans-serif;
+//   font-size: 250%;
+// }
+// h2, h3 {
+//   color: #444;
+//   font-family: Arial, Helvetica, sans-serif;
+//   font-weight: lighter;
+// }
+// body {
+//   user-select: none;
+// }
+.main-content {
+    position: absolute;
+    top: 0;
+    left: 99px;
+    right: 0;
+    bottom: 0;
+}
+.card {
+    border: 2px solid gray;
+}
+.cardBody {
+    padding: 10px;
+}
+.cardTitle {
+    background: #2b2b2b;
+    padding: 5px;
+    color: white;
+}
+.table {
+    border-collapse: collapse;
+    width: 100%;
+}
+.table th {
+    background-color: whitesmoke;
+}
+.table th, .table td {
+    padding: 8px;
+}
+.tile-selection {
+    border: 1px solid #eaeaea;
+    padding: 37px 20px;
+    display: inline-block;
+    cursor: pointer;
+    width: 50%;
+    text-align: center;
+    box-sizing: border-box;
+    position: relative;
+}
+.tile-selection .top-right {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+.tile-selection .top-left {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+.tile-selection .bottom-right {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
+.tile-selection .bottom-left.action {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    padding: 9px;
+    border-top-right-radius: 9px;
+}
+.action-danger {
+    color: white;
+    background: #a23030;
+}
+.action-default {
+    background: whitesmoke;
+    color: gray;
+}
+.tile-selection.third {
+    width: 33%;
+}
+.text-muted {
+    color: gray;
+}
+.tile-selection:hover {
+    background-color: whitesmoke;
+}
+.tile-selection.selected, .tile-selection.selected:hover {
+    background-color: green;
+    color: white;
+}
+.btn {
+    padding: 10px 30px;
+    border-radius: 3px;
+    border: 1px solid #c1c1c1;
+    cursor: pointer;
+}
+.btn.btn-primary {
+    background-color: green;
+    color: white;
+    border-color: green;
+}
+.btn.btn-primary:hover {
+    background-color: #006d00;
+}
+.btn.btn-default {
+    background-color: white;
+}
+.btn.btn-default:hover {
+     background-color: whitesmoke;
+}
+.btn[disabled] {
+    opacity: .5;
+}
+
+.alert {
+    margin-top: 0;
+    padding: 10px;
+    border: 1px dashed #e0e0e0;
+    background: whitesmoke;
+}
+
+/* AMERICAN */
+.hotel-chain-5 {
+    background: blue !important;
+    border-color: blue !important;
+}
+
+/* CONTINENTAL */
+.hotel-chain-6 {
+    background: turquoise !important;
+    border-color: turquoise !important;
+}
+
+/* IMPERIAL */
+.hotel-chain-4 {
+    background: pink !important;
+    border-color: pink !important;
+}
+
+/* LUXOR */
+.hotel-chain-2 {
+    background: red !important;
+    border-color: red !important;
+}
+
+/* FESTIVAL */
+.hotel-chain-3 {
+    background: green !important;
+    border-color: green !important;
+}
+
+/* TOWER */
+.hotel-chain-7 {
+    background: #d6d622 !important;
+    border-color: #d6d622 !important;
+}
+
+/* WORLDWIDE */
+.hotel-chain-1 {
+    background: #a5532a !important;
+    border-color: #a5532a !important;
+}
+
+
+//Board
+.boardSquare {
+    border: 1px solid gray;
+    float: left;
+    box-sizing: border-box;
+    height: 11.16%;
+    text-align: center;
+    width: 8.33%;
+}
+.boardSquare.hasTile {
+    background-color: gray;
+    border-bottom-color: #545454;
+    border-right-color: #545454;
+}
+.boardSquare.player-tile {
+    box-shadow: 0 0 10px 0px #02bb00;
+    border-color: #02bb00;
+    cursor: pointer;
+}
+.board {
+    color: white;
+    background: #2b2b2b;
+    height: 100%;
+}
+
+
+//scoreBoard
+.scoreBoard {
+    position: fixed;
+    left: 0;
+    background: white;
+    top: 0;
+    bottom: 0;
+    z-index: 1000;
+    box-shadow: 2px 0px 2px gray;
+}
+.scoreBoard.collapsed {
+    width: 98px;
+}
+.highlighted {
+    border: 1px solid green;
+    box-shadow: 0 0 10px 0px #02bb00;
+}
+
+.hidden {
+    display:none;
+}

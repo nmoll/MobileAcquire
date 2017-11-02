@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      {{ title }}
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button [disabled]="!selectedHotelChain" (tap)="onOk()" color="primary">
+        {{ confirmButtonText }}
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <div *ngFor="let hotelChain of hotelChains"
+      class="tile-selection"
+      [class.selected]="selectedHotelChain === hotelChain"
+      (tap)="selectHotelChain(hotelChain)">
+      {{ hotelChain.name }}
+  </div>
+</ion-content>

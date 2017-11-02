@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Purchase Stocks
+    </ion-title>
+
+    <ion-buttons start>
+      <button ion-button (tap)="onCancel()">
+        <span color="primary" showWhen="ios">
+          Cancel
+        </span>
+        <ion-icon name="md-close" showWhen="core,android,windows"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-buttons end>
+      <button ion-button [disabled]="!getTotalPrice()" (tap)="onOk()" color="primary">
+          Purchase
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <div style="margin-bottom: 20px;">
+      Available Cash: <span style="color: green">${{ getAvailableCash() }}</span>
+  </div>
+
+  <div>
+      <div *ngFor="let stock of stockShares" class="tile-selection" (tap)="addStock(stock)">
+          <span class="top-left">{{ stock.quantity }}</span>
+          <span class="top-right" style="color: green;">${{ getStockSharePrice(stock) }}</span>
+          <span class="bottom-left action action-danger"
+              (tap)="removeStock(stock, $event)"
+              *ngIf="stock.quantity > 0">
+              Remove
+          </span>
+          <small class="bottom-right text-muted">Available: {{ getAvailableShares(stock) }}</small>
+          {{ stock.hotelChain.name }}
+      </div>
+  </div>
+</ion-content>

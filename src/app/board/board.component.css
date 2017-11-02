@@ -1,0 +1,22 @@
+.boardSquare {
+    border: 1px solid gray;
+    display: inline-block;
+    box-sizing: border-box;
+    height: 11.16%;
+    text-align: center;
+    width: 8.33%;
+}
+.boardSquare.hasTile {
+    background-color: gray;
+    border-bottom-color: #545454;
+    border-right-color: #545454;
+}
+.boardSquare.player-tile {
+    box-shadow: 0 0 10px 0px #02bb00;
+    border-color: #02bb00;
+    cursor: pointer;
+}
+.board {
+    color: white;
+    background: #2b2b2b;
+}

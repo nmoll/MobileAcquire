@@ -1,0 +1,7 @@
+<div class="board">
+    <div *ngFor="let square of squares"
+        class="boardSquare {{getBoardSquareClass(square)}}"
+        (tap)="selectSquare(square)">
+        <!-- {{square.getDisplay()}} -->
+    </div>
+</div>
