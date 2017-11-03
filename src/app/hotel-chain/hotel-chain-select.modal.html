@@ -12,10 +12,23 @@
 </ion-header>
 
 <ion-content padding>
-  <div *ngFor="let hotelChain of hotelChains"
-      class="tile-selection"
+  <ion-card *ngFor="let hotelChain of hotelChains"
+      class="stock-selection"
       [class.selected]="selectedHotelChain === hotelChain"
       (tap)="selectHotelChain(hotelChain)">
-      {{ hotelChain.name }}
-  </div>
+      <ion-card-header>
+        <ion-grid>
+          <ion-row>
+            <ion-col col-9>
+              <span class="stock-color-{{hotelChain.type}}">
+                {{ hotelChain.name }}
+              </span>
+            </ion-col>
+            <ion-col col-3 style="text-align:right;">
+              <span style="color: green;">$200</span>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-header>
+  </ion-card>
 </ion-content>

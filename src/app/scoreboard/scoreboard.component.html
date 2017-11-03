@@ -1,28 +1,39 @@
-<div class="scoreBoard" [class.collapsed]="collapsed" (tap)="collapsed = !collapsed">
-    <div class="cardTitle">
-        Scoreboard
-    </div>
-    <table style="text-align: center;" class="table">
-        <thead>
-            <tr>
-                <th></th>
-                <th *ngFor="let hotelChain of hotelChains"
-                    class="hotel-chain-{{hotelChain.type}}"
-                    style="color: white;"
-                    [class.hidden]="collapsed">
-                    {{hotelChain.abbreviation}}
-                </th>
-                <th>$</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let player of players" [class.highlighted]="isCurrentPlayer(player)">
-                <td>{{player.name.substring(0, 2)}}</td>
-                <td *ngFor="let hotelChain of hotelChains" [class.hidden]="collapsed">
-                    {{ player.getStockShareForHotelChain(hotelChain).quantity }}
-                </td>
-                <td>{{player.cash}}</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Scoreboard
+    </ion-title>
+
+    <ion-buttons end>
+      <button ion-button (tap)="close()" color="primary">
+          Done
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <table style="text-align: center;" class="table">
+      <thead>
+          <tr>
+              <th></th>
+              <th *ngFor="let hotelChain of hotelChains"
+                  class="hotel-chain-{{hotelChain.type}}"
+                  style="color: white;"
+                  [class.hidden]="collapsed">
+                  {{hotelChain.abbreviation}}
+              </th>
+              <th>$</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let player of players" [class.highlighted]="isCurrentPlayer(player)">
+              <td>{{player.name}}</td>
+              <td *ngFor="let hotelChain of hotelChains" [class.hidden]="collapsed">
+                  {{ player.getStockShareForHotelChain(hotelChain).quantity }}
+              </td>
+              <td>{{player.cash}}</td>
+          </tr>
+      </tbody>
+  </table>
+</ion-content>

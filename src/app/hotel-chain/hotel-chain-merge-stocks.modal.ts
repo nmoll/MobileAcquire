@@ -35,10 +35,7 @@ export class HotelChainMergeStocksModalComponent implements OnInit {
         this.stockSharesToHold++;
     }
 
-    removeHeld(event: MouseEvent): void {
-        event.preventDefault();
-        event.stopPropagation();
-
+    removeHeld(): void {
         if (this.stockSharesToHold === 0) return;
         this.stockShares++;
         this.stockSharesToHold--;
@@ -50,10 +47,7 @@ export class HotelChainMergeStocksModalComponent implements OnInit {
         this.stockSharesToTrade++;
     }
 
-    removeTrade(event: MouseEvent): void {
-        event.preventDefault();
-        event.stopPropagation();
-
+    removeTrade(): void {
         if (this.stockSharesToTrade === 0) return;
         this.stockShares += 2;
         this.stockSharesToTrade--;
@@ -65,10 +59,7 @@ export class HotelChainMergeStocksModalComponent implements OnInit {
         this.stockSharesToSell++;
     }
 
-    removeSold(event: MouseEvent): void {
-        event.preventDefault();
-        event.stopPropagation();
-
+    removeSold(): void {
         if (this.stockSharesToSell === 0) return;
         this.stockShares++;
         this.stockSharesToSell--;

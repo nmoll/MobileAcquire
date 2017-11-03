@@ -49,7 +49,8 @@ import { HotelChainMergeStocksModalComponent } from './hotel-chain/hotel-chain-m
     AcquireComponent,
     HotelChainSelectModalComponent,
     HotelChainStocksModalComponent,
-    HotelChainMergeStocksModalComponent
+    HotelChainMergeStocksModalComponent,
+    ScoreboardComponent
   ],
   providers: [
     StatusBar,

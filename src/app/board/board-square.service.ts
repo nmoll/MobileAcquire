@@ -36,8 +36,6 @@ export class BoardSquareService {
     }
 
     getAdjacentTiles(square: BoardSquare): Tile[] {
-        var squares = this.getAdjacentSquares(square);
-        var tiles = squares.map(square => square.tile);
         return this.getAdjacentSquares(square)
             .map(square => square.tile)
             .filter(tile => tile != null);

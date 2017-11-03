@@ -1,4 +1,10 @@
-<scoreboard></scoreboard>
-<div class="main-content">
-    <board></board>
-</div>
+<ion-row style="height:100%">
+    <ion-col col-3 style="padding:0;" text-center>
+        <button ion-button full large (tap)="showScoreboard()">Scoreboard</button>
+        <button ion-button full large disabled>Buy Stocks</button>
+        <button ion-button round outline large disabled>End Turn</button>
+    </ion-col>
+    <ion-col col-9 style="padding:0;">
+        <board></board>
+    </ion-col>
+</ion-row>

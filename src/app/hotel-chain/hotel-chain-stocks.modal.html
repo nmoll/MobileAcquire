@@ -26,16 +26,32 @@
   </div>
 
   <div>
-      <div *ngFor="let stock of stockShares" class="tile-selection" (tap)="addStock(stock)">
-          <span class="top-left">{{ stock.quantity }}</span>
-          <span class="top-right" style="color: green;">${{ getStockSharePrice(stock) }}</span>
-          <span class="bottom-left action action-danger"
-              (tap)="removeStock(stock, $event)"
-              *ngIf="stock.quantity > 0">
-              Remove
-          </span>
-          <small class="bottom-right text-muted">Available: {{ getAvailableShares(stock) }}</small>
-          {{ stock.hotelChain.name }}
-      </div>
+
+      <ion-grid>
+        <ion-row>
+          <ion-col col-4 class="stock-placeholder hotel-chain-{{selectedStocks[0] ? selectedStocks[0].hotelChain.type : 0 }}">
+            {{ selectedStocks[0] ? selectedStocks[0].hotelChain.name : 'Available' }}
+          </ion-col>
+          <ion-col col-4 class="stock-placeholder hotel-chain-{{selectedStocks[1] ? selectedStocks[1].hotelChain.type : 0 }}">
+            {{ selectedStocks[1] ? selectedStocks[1].hotelChain.name : 'Available' }}
+          </ion-col>
+          <ion-col col-4 class="stock-placeholder hotel-chain-{{selectedStocks[2] ? selectedStocks[2].hotelChain.type : 0 }}">
+            {{ selectedStocks[2] ? selectedStocks[2].hotelChain.name : 'Available' }}
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <ion-card *ngFor="let stock of stockShares" (tap)="addStock(stock)">
+        <ion-card-header>
+          <ion-grid>
+            <ion-row>
+              <ion-col col-9>{{ stock.hotelChain.name }}</ion-col>
+              <ion-col col-3 style="text-align:right;">
+                <span style="color: green;">${{ getStockSharePrice(stock) }}</span>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-header>
+      </ion-card>
   </div>
 </ion-content>

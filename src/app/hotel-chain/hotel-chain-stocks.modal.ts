@@ -19,13 +19,10 @@ export class HotelChainStocksModalComponent implements OnInit {
         private viewCtrl: ViewController
     ) {}
 
-    ok: Function;
-    cancel: Function;
-    destroy: Function;
-    closeModal: Function;
-
     player: Player;
     stockShares: StockShare[];
+
+    selectedStocks: StockShare[] = [null, null, null];
 
     onCancel(): void {
         this.viewCtrl.dismiss();
@@ -70,12 +67,17 @@ export class HotelChainStocksModalComponent implements OnInit {
     addStock(stockShare: StockShare): void {
         if (this.canPurchaseStockShare(stockShare)) {
             stockShare.quantity++;
+
+            for (var i = 0; i < 3; i++) {
+              if (!this.selectedStocks[i]) {
+                this.selectedStocks[i] = new StockShare(stockShare.hotelChain);
+                break;
+              }
+            }
         }
     }
 
-    removeStock(stockShare: StockShare, event: MouseEvent): void {
-        event.preventDefault();
-        event.stopPropagation();
+    removeStock(stockShare: StockShare): void {
         stockShare.quantity--;
     }
 

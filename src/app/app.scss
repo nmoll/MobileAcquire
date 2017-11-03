@@ -16,22 +16,6 @@
 // automatically applied to the <body> element in the app.
 
 /* Master Styles */
-// html {
-//     font-family: 'Segoe UI', 'Lucida Grande','Ubuntu','sans-serif';
-// }
-// h1 {
-//   color: #369;
-//   font-family: Arial, Helvetica, sans-serif;
-//   font-size: 250%;
-// }
-// h2, h3 {
-//   color: #444;
-//   font-family: Arial, Helvetica, sans-serif;
-//   font-weight: lighter;
-// }
-// body {
-//   user-select: none;
-// }
 .main-content {
     position: absolute;
     top: 0;
@@ -39,17 +23,7 @@
     right: 0;
     bottom: 0;
 }
-.card {
-    border: 2px solid gray;
-}
-.cardBody {
-    padding: 10px;
-}
-.cardTitle {
-    background: #2b2b2b;
-    padding: 5px;
-    color: white;
-}
+
 .table {
     border-collapse: collapse;
     width: 100%;
@@ -144,48 +118,95 @@
     background: whitesmoke;
 }
 
+.stock-placeholder {
+  background: whitesmoke;
+  border: 1px dashed #ababab;
+  height: 100px;
+  text-align: center;
+  padding-top: 40px;
+  color: gray;
+}
+
+.stock-selection.selected {
+  background-color: whitesmoke;
+}
+
 /* AMERICAN */
 .hotel-chain-5 {
     background: blue !important;
     border-color: blue !important;
+    color: white;
+}
+
+.stock-color-5 {
+  color: blue;
 }
 
 /* CONTINENTAL */
 .hotel-chain-6 {
     background: turquoise !important;
     border-color: turquoise !important;
+    color: white;
+}
+
+.stock-color-6 {
+    color: turquoise;
 }
 
 /* IMPERIAL */
 .hotel-chain-4 {
     background: pink !important;
     border-color: pink !important;
+    color: white;
+}
+
+.stock-color-4 {
+    color: pink;
 }
 
 /* LUXOR */
 .hotel-chain-2 {
     background: red !important;
     border-color: red !important;
+    color: white;
+}
+
+.stock-color-2 {
+    color: red;
 }
 
 /* FESTIVAL */
 .hotel-chain-3 {
     background: green !important;
     border-color: green !important;
+    color: white;
+}
+
+.stock-color-3 {
+    color: green;
 }
 
 /* TOWER */
 .hotel-chain-7 {
     background: #d6d622 !important;
     border-color: #d6d622 !important;
+    color: white;
+}
+
+.stock-color-7 {
+    color: #d6d622;
 }
 
 /* WORLDWIDE */
 .hotel-chain-1 {
     background: #a5532a !important;
     border-color: #a5532a !important;
+    color: white;
 }
 
+.stock-color-1 {
+    color: #a5532a;
+}
 
 //Board
 .boardSquare {
@@ -207,30 +228,11 @@
     cursor: pointer;
 }
 .board {
-    color: white;
-    background: #2b2b2b;
-    height: 100%;
-}
-
-
-//scoreBoard
-.scoreBoard {
-    position: fixed;
-    left: 0;
-    background: white;
-    top: 0;
-    bottom: 0;
-    z-index: 1000;
-    box-shadow: 2px 0px 2px gray;
-}
-.scoreBoard.collapsed {
-    width: 98px;
-}
-.highlighted {
-    border: 1px solid green;
-    box-shadow: 0 0 10px 0px #02bb00;
-}
-
-.hidden {
-    display:none;
+  color: white;
+  background: #2b2b2b;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }

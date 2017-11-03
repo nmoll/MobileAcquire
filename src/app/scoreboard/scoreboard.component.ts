@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ViewController } from 'ionic-angular';
 
 import { HotelChain } from '../hotel-chain/hotel-chain';
 import { HotelChainService } from '../hotel-chain/hotel-chain.service';
@@ -15,7 +16,8 @@ export class ScoreboardComponent implements OnInit {
 
     constructor(
         private hotelChainService: HotelChainService,
-        private playerService: PlayerService
+        private playerService: PlayerService,
+        private viewCtrl: ViewController
     ) {}
 
     hotelChains: HotelChain[];
@@ -29,6 +31,10 @@ export class ScoreboardComponent implements OnInit {
     ngOnInit(): void {
         this.hotelChains = this.hotelChainService.getHotelChains();
         this.players = this.playerService.getPlayers();
+    }
+
+    close(): void {
+      this.viewCtrl.dismiss();
     }
 
 }

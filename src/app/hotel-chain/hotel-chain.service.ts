@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 
 import { HotelChain, HotelChainType } from './hotel-chain';
-import { Player } from '../player/player';
 
 import { PlayerService } from '../player/player.service';
 
