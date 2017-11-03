@@ -22,6 +22,8 @@ export class Player {
     cash: number;
     tiles: Tile[];
     stockShares: StockShare[];
+    selectedTile: Tile;
+    hasPlacedTile: boolean;
 
     addTile(tile: Tile): void {
         this.tiles.push(tile);

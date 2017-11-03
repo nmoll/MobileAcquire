@@ -12,10 +12,8 @@ export const BOARD_WIDTH = 12;
 export const BOARD_HEIGHT = 9;
 
 @Component({
-    //moduleId: module.id.toString(),
     selector: 'board',
-    templateUrl: 'board.component.html'//,
-    //styleUrls: [require('./board.component.css')]
+    templateUrl: 'board.component.html'
 })
 export class BoardComponent implements OnInit {
 
@@ -27,7 +25,7 @@ export class BoardComponent implements OnInit {
 
     squares: BoardSquare[];
 
-    onTileSelection(tile: Tile): void {
+    onTilePlaced(tile: Tile): void {
         var square = this.boardSquareService.findSquareById(tile.boardSquareId);
         square.tile = tile;
     }
@@ -50,19 +48,29 @@ export class BoardComponent implements OnInit {
 
     getBoardSquareClass(square: BoardSquare): string {
         var result = '';
-        if (square.tile) {
+
+        if (square.tile || this.isCurrentSelection(square)) {
             result += 'hasTile ';
         }
         if (this.isPartOfHotelChain(square)) {
-            return 'hotel-chain-' + square.tile.hotelChain.type;
+            result += 'hotel-chain-' + square.tile.hotelChain.type;
         } else if (this.isPlayerTile(square)) {
-            return 'player-tile';
+            result += 'player-tile';
         }
 
         return result;
     }
 
+    isCurrentSelection(square: BoardSquare): boolean {
+        var selectedTile = this.playerService.currentPlayer.selectedTile;
+        return selectedTile && selectedTile.boardSquareId === square.id;
+    }
+
     selectSquare(square: BoardSquare): void {
+        if (this.playerService.currentPlayer.hasPlacedTile) {
+            return;
+        }
+
         if (this.isPlayerTile(square)) {
             var tile = this.playerService.currentPlayer.tiles.filter(tile => tile.boardSquareId === square.id)[0];
             this.acquireEventService.notifyTileSelected(tile);
@@ -71,6 +79,9 @@ export class BoardComponent implements OnInit {
 
     ngOnInit(): void {
         this.squares = this.boardSquareService.getBoardSquares();
-        this.acquireEventService.tilePlacedEvent.subscribe(tile => this.onTileSelection(tile));
+        this.acquireEventService.tilePlacedEvent.subscribe(tile => this.onTilePlaced(tile));
+        this.acquireEventService.tileSelectedEvent.subscribe((tile) => {
+            this.playerService.currentPlayer.selectedTile = tile;
+        });
     }
 }

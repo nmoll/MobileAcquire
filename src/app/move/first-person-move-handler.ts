@@ -29,9 +29,10 @@ export class FirstPersonMoveHandler implements MoveHandler {
             resolver = resolve;
         });
 
-        var subscription = this.acquireEventService.tileSelectedEvent.subscribe(function (tile) {
+        var subscription = this.acquireEventService.tilePlacedEvent.subscribe(() => {
             subscription.unsubscribe();
-            resolver(tile);
+            this.playerService.currentPlayer.hasPlacedTile = true;
+            resolver(this.playerService.currentPlayer.selectedTile);
         });
 
         return promise;
@@ -108,15 +109,11 @@ export class FirstPersonMoveHandler implements MoveHandler {
             resolver = resolve;
         });
 
-        if (this.canBuyStocks()) {
-          var modal = this.modalCtrl.create(HotelChainStocksModalComponent);
-          modal.onDidDismiss(() => {
+        var modal = this.modalCtrl.create(HotelChainStocksModalComponent);
+        modal.onDidDismiss(() => {
             resolver();
-          });
-          modal.present();
-        } else {
-            resolver();
-        }
+        });
+        modal.present();
 
         return promise;
     }

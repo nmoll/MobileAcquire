@@ -22,6 +22,10 @@ export class HotelChainService {
         return this.hotelChains;
     }
 
+    getActiveHotelChains(): HotelChain[] {
+        return this.getHotelChains().filter(hotelChain => hotelChain.tiles.length > 0)
+    }
+
     getStockPrice(hotelChain: HotelChain): number {
         var price = 0;
         var size = hotelChain.tiles.length;

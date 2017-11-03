@@ -31,8 +31,13 @@ export class AcquireService {
     }
 
     onMoveComplete(): void {
-        this.playerService.rotateCurrentPlayer();
-        this.waitForNextMove();
+        var subscription = this.acquireEventService.endTurnEvent.subscribe(() => {
+            this.playerService.currentPlayer.hasPlacedTile = false;
+            this.playerService.currentPlayer.selectedTile = null;
+            this.playerService.rotateCurrentPlayer();
+            this.waitForNextMove();
+            subscription.unsubscribe();
+        });
     }
 
     waitForNextMove(): void {

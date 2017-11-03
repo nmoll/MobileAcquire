@@ -34,6 +34,12 @@ export class MoveHandlerService {
     handleMove(tile: Tile, adjacentTiles: Tile[]): Promise<Object> {
         return this.handleTilePlacement(tile, adjacentTiles)
             .then(() => {
+                // First person will buy stocks in their own time
+                if (this.playerService.currentPlayer.playerType == PlayerType.FIRST_PERSON) {
+                    return new Promise(function (resolve) {
+                        resolve();
+                    });
+                }
                 return this.buyStocks();
             })
             .then(() => {
@@ -61,11 +67,6 @@ export class MoveHandlerService {
 
     buyStocks(): Promise<Object> {
         return this.getMoveHandler().buyStocks();
-    }
-
-    canBuyStocks(): boolean {
-        var hotelChains = this.hotelChainService.getHotelChains().filter(hotelChain => hotelChain.tiles.length > 0);
-        return hotelChains.length > 0 && this.playerService.currentPlayer.cash > 0;
     }
 
     discardAndDrawNewTile(tile: Tile): Promise<Object> {

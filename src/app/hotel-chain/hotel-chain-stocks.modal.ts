@@ -7,7 +7,6 @@ import { HotelChainService } from './hotel-chain.service';
 import { PlayerService } from '../player/player.service';
 
 @Component({
-    //moduleId: module.id,
     selector: 'hotel-chain-stocks-modal',
     templateUrl: 'hotel-chain-stocks.modal.html'
 })
