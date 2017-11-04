@@ -25,6 +25,11 @@ export class GameCreateComponent implements OnInit  {
         this.players.push(new Player(name, PlayerType.COMPUTER));
     }
 
+    removePlayer(player: Player): void {
+        var index = this.players.indexOf(player);
+        this.players.splice(index, 1);
+    }
+
     startGame(): void {
         this.playerService.players = this.players;
         this.playerService.currentPlayer = this.players[0];

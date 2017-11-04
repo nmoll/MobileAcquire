@@ -12,21 +12,36 @@
 </ion-header>
 
 <ion-content padding>
-    <ion-card *ngFor="let player of players">
+    <ion-card *ngFor="let player of players; let i = index">
+        <ion-card-header>
+            <ion-grid>
+                <ion-row>
+                    <ion-col col-10>
+                        Player {{ i + 1 }}
+                    </ion-col>
+                    <ion-col col-2 text-right right>
+                        <button ion-button small color="danger" (tap)="removePlayer(player)" *ngIf="players.length > 2">
+                            <ion-icon name="close"></ion-icon>
+                        </button>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-card-header>
         <ion-card-content>
-            <ion-segment [(ngModel)]="player.playerType">
-                <ion-segment-button value="1">
-                    Human
-                </ion-segment-button>
-                <ion-segment-button value="2">
-                    Computer
-                </ion-segment-button>
-            </ion-segment>
-            <ion-label stacked>Name</ion-label>
-            <ion-input type="text" [(ngModel)]="player.name"></ion-input>
+            <ion-item>
+                <ion-label fixed color="primary">Name</ion-label>
+                <ion-input placeholder="Player Name" type="text" [(ngModel)]="player.name"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label fixed color="primary">Type</ion-label>
+                <ion-select [(ngModel)]="player.playerType">
+                    <ion-option value="1">Human</ion-option>
+                    <ion-option value="2">Computer</ion-option>
+                </ion-select>
+            </ion-item>
         </ion-card-content>
   </ion-card>
-  <button ion-button block icon-left (tap)="addPlayer()">
+  <button ion-button block icon-left (tap)="addPlayer()" *ngIf="players.length < 6">
       <ion-icon name="add-circle"></ion-icon>
       Add Player
   </button>

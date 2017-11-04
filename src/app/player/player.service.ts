@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Player, PlayerType } from './player';
+import { Player } from './player';
 import { HotelChain } from '../hotel-chain/hotel-chain';
 
 @Injectable()
