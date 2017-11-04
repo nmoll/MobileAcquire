@@ -10,8 +10,6 @@ import { HotelChainService } from '../hotel-chain/hotel-chain.service';
 import { PlayerService } from '../player/player.service';
 import { TileBagService } from '../tile/tile-bag.service';
 
-import { AppModule } from '../app.module';
-
 import { MoveHandler } from './move-handler.interface';
 import { FirstPersonMoveHandler } from './first-person-move-handler';
 import { ComputerMoveHandler } from './computer-move-handler';
@@ -164,11 +162,13 @@ export class MoveHandlerService {
         var promise = new Promise(function (resolve) {
             resolver = resolve;
         });
+
+        var mergeResult;
         if (optionA.tiles.length < optionB.tiles.length) {
-            var mergeResult = new HotelChainMergeResult(optionA, optionB);
+            mergeResult = new HotelChainMergeResult(optionA, optionB);
             resolver(mergeResult);
         } else if (optionA.tiles.length > optionB.tiles.length) {
-            var mergeResult = new HotelChainMergeResult(optionB, optionA);
+            mergeResult = new HotelChainMergeResult(optionB, optionA);
             resolver(mergeResult);
         } else {
             this.chooseMerge(optionA, optionB).then((mergeResult) => {
@@ -225,14 +225,16 @@ export class MoveHandlerService {
 
     rewardMajorityAndMinorityStockholders(hotelChain: HotelChain): void {
         var majorityStockholders = this.playerService.getMajorityStockholders(hotelChain);
+        var bonus;
+
         for (let player of majorityStockholders) {
-            var bonus = this.hotelChainService.getMergeMajorityBonus(hotelChain) / majorityStockholders.length
+            bonus = this.hotelChainService.getMergeMajorityBonus(hotelChain) / majorityStockholders.length
             player.cash += this.nearestHundred(bonus);
         }
 
         var minorityStockholders = this.playerService.getMinorityStockholders(hotelChain);
         for (let player of minorityStockholders) {
-            var bonus = this.hotelChainService.getMergeMinorityBonus(hotelChain) / minorityStockholders.length;
+            bonus = this.hotelChainService.getMergeMinorityBonus(hotelChain) / minorityStockholders.length;
             player.cash += this.nearestHundred(bonus);
         }
     }

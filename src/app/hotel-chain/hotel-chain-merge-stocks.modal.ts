@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ViewController, NavParams } from 'ionic-angular';
-import { HotelChain } from '../hotel-chain/hotel-chain';
 import { HotelChainMergeResult } from '../hotel-chain/hotel-chain-merge-result';
 import { Player } from '../player/player';
 import { HotelChainService } from '../hotel-chain/hotel-chain.service';
@@ -17,8 +16,8 @@ export class HotelChainMergeStocksModalComponent implements OnInit {
       private viewCtrl: ViewController,
       private params: NavParams
     ) {
-      this.player = params.get('player');
-      this.mergeResult = params.get('mergeResult');
+      this.player = this.params.get('player');
+      this.mergeResult = this.params.get('mergeResult');
     }
 
     mergeResult: HotelChainMergeResult;
@@ -66,7 +65,7 @@ export class HotelChainMergeStocksModalComponent implements OnInit {
     }
 
     getTotalSellAmount(): number {
-        var stockPrice = this.hotelChainService.getStockPrice(this.mergeResult.source);
+        var stockPrice = this.mergeResult.source.getStockPrice();
         return stockPrice * this.stockSharesToSell;
     }
 

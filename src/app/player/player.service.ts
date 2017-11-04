@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 
 import { Player, PlayerType } from './player';
 import { HotelChain } from '../hotel-chain/hotel-chain';
+import { StockShare } from '../stock-share/stock-share';
+
+import { HotelChainService } from '../hotel-chain/hotel-chain.service';
 
 @Injectable()
 export class PlayerService {
@@ -57,6 +60,11 @@ export class PlayerService {
             var stockShareB = b.getStockShareForHotelChain(hotelChain);
             return stockShareB.quantity - stockShareA.quantity;
         });
+    }
+
+    onEndTurn(): void {
+        this.currentPlayer.hasPlacedTile = false;
+        this.currentPlayer.selectedTile = null;
     }
 
     init(): void {

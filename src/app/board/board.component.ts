@@ -54,7 +54,7 @@ export class BoardComponent implements OnInit {
         }
         if (this.isPartOfHotelChain(square)) {
             result += 'hotel-chain-' + square.tile.hotelChain.type;
-        } else if (this.isPlayerTile(square)) {
+        } else if (this.isPlayerTile(square) && !this.playerService.currentPlayer.hasPlacedTile) {
             result += 'player-tile';
         }
 

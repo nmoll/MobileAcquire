@@ -7,8 +7,6 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 
-//import { AppRoutingModule } from './app-routing.module';
-
 import { AcquireComponent } from './acquire/acquire.component';
 import { BoardComponent } from './board/board.component';
 import { ScoreboardComponent } from './scoreboard/scoreboard.component';
@@ -20,12 +18,15 @@ import { PlayerService } from './player/player.service';
 import { AcquireEventService } from './acquire/acquire-event.service';
 import { TileBagService } from './tile/tile-bag.service';
 import { MoveHandlerService } from './move/move-handler.service';
+import { StockShareService } from './stock-share/stock-share.service';
 import { FirstPersonMoveHandler } from './move/first-person-move-handler';
 import { ComputerMoveHandler } from './move/computer-move-handler';
 
 import { HotelChainSelectModalComponent } from './hotel-chain/hotel-chain-select.modal';
 import { HotelChainStocksModalComponent } from './hotel-chain/hotel-chain-stocks.modal';
 import { HotelChainMergeStocksModalComponent } from './hotel-chain/hotel-chain-merge-stocks.modal';
+
+import { TimesPipe } from './utils/pipe/times-pipe';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { HotelChainMergeStocksModalComponent } from './hotel-chain/hotel-chain-m
     ScoreboardComponent,
     HotelChainSelectModalComponent,
     HotelChainStocksModalComponent,
-    HotelChainMergeStocksModalComponent
+    HotelChainMergeStocksModalComponent,
+    TimesPipe
   ],
   imports: [
     BrowserModule,
@@ -63,6 +65,7 @@ import { HotelChainMergeStocksModalComponent } from './hotel-chain/hotel-chain-m
     AcquireEventService,
     TileBagService,
     MoveHandlerService,
+    StockShareService,
     FirstPersonMoveHandler,
     ComputerMoveHandler
   ]

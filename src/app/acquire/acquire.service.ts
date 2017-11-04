@@ -1,14 +1,11 @@
 import { Injectable } from '@angular/core';
 
-import { Player } from '../player/player';
-import { Tile } from '../tile/tile';
-import { HotelChain } from '../hotel-chain/hotel-chain';
-
 import { AcquireEventService } from './acquire-event.service';
 import { PlayerService } from '../player/player.service';
 import { MoveHandlerService } from '../move/move-handler.service';
 import { TileBagService } from '../tile/tile-bag.service';
 import { BoardSquareService } from '../board/board-square.service';
+import { StockShareService } from '../stock-share/stock-share.service';
 
 @Injectable()
 export class AcquireService {
@@ -18,7 +15,8 @@ export class AcquireService {
         private boardSquareService: BoardSquareService,
         private playerService: PlayerService,
         private moveHandlerService: MoveHandlerService,
-        private tileBagService: TileBagService
+        private tileBagService: TileBagService,
+        private stockShareService: StockShareService
     ) {}
 
     grabTiles(): void {
@@ -32,8 +30,8 @@ export class AcquireService {
 
     onMoveComplete(): void {
         var subscription = this.acquireEventService.endTurnEvent.subscribe(() => {
-            this.playerService.currentPlayer.hasPlacedTile = false;
-            this.playerService.currentPlayer.selectedTile = null;
+            this.playerService.onEndTurn();
+            this.stockShareService.resolvePlayerShares();
             this.playerService.rotateCurrentPlayer();
             this.waitForNextMove();
             subscription.unsubscribe();

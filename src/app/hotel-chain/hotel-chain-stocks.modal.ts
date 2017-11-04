@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ViewController } from 'ionic-angular';
 import { Player } from '../player/player';
 import { StockShare } from '../stock-share/stock-share';
+import { StockShareOrder } from '../stock-share/stock-share-order';
 
 import { HotelChainService } from './hotel-chain.service';
 import { PlayerService } from '../player/player.service';
+import { StockShareService } from '../stock-share/stock-share.service';
 
 @Component({
     selector: 'hotel-chain-stocks-modal',
@@ -15,64 +17,33 @@ export class HotelChainStocksModalComponent implements OnInit {
     constructor(
         private hotelChainService: HotelChainService,
         private playerService: PlayerService,
-        private viewCtrl: ViewController
+        private viewCtrl: ViewController,
+        private stockShareService: StockShareService
     ) {}
 
     player: Player;
-    stockShares: StockShare[];
-
-    selectedStocks: StockShare[] = [null, null, null];
-
-    onCancel(): void {
-        this.viewCtrl.dismiss();
-    }
 
     onOk(): void {
-        this.playerService.currentPlayer.cash -= this.getTotalPrice();
-        this.playerService.currentPlayer.addStockShares(this.stockShares);
         this.viewCtrl.dismiss();
     }
 
     getAvailableCash(): number {
-        return this.playerService.currentPlayer.cash - this.getTotalPrice();
-    }
-
-    getTotalPrice(): number {
-        var result = 0;
-        for (let stockShare of this.stockShares) {
-            result += (stockShare.quantity * this.getStockSharePrice(stockShare));
-        }
-        return result;
-    }
-
-    getTotalQuantity(): number {
-        var result = 0;
-        for (let stockShare of this.stockShares) {
-            result += stockShare.quantity;
-        }
-        return result;
+        return this.playerService.currentPlayer.cash - this.stockShareService.getTotalPrice();
     }
 
     canPurchaseStockShare(stockShare: StockShare): boolean {
-        return this.getTotalQuantity() < 3 &&
+        return !this.getStockShareOrder().isFullOrder() &&
                this.getAvailableCash() >= this.getStockSharePrice(stockShare) &&
                this.getAvailableShares(stockShare) > 0;
     }
 
     getAvailableShares(stockShare: StockShare): number {
-        return this.hotelChainService.getAvailableStockShares(stockShare.hotelChain) - stockShare.quantity;
+        return this.stockShareService.getAvailableStockShares(stockShare.hotelChain) - stockShare.quantity;
     }
 
     addStock(stockShare: StockShare): void {
         if (this.canPurchaseStockShare(stockShare)) {
             stockShare.quantity++;
-
-            for (var i = 0; i < 3; i++) {
-              if (!this.selectedStocks[i]) {
-                this.selectedStocks[i] = new StockShare(stockShare.hotelChain);
-                break;
-              }
-            }
         }
     }
 
@@ -81,15 +52,17 @@ export class HotelChainStocksModalComponent implements OnInit {
     }
 
     getStockSharePrice(stockShare: StockShare): number {
-        return this.hotelChainService.getStockPrice(stockShare.hotelChain);
+        return stockShare.hotelChain.getStockPrice();
+    }
+
+    getStockShareOrder(): StockShareOrder {
+        return this.playerService.currentPlayer.stockShareOrder;
     }
 
     initStocks(): void {
-        this.stockShares = [];
-        var hotelChains = this.hotelChainService.getHotelChains().filter(hotelChain => hotelChain.tiles.length);
-        for (let hotelChain of hotelChains) {
-            var stockShare = new StockShare(hotelChain);
-            this.stockShares.push(stockShare);
+        if (!this.getStockShareOrder()) {
+            var hotelChains = this.hotelChainService.getHotelChains().filter(hotelChain => hotelChain.tiles.length);
+            this.playerService.currentPlayer.stockShareOrder = new StockShareOrder(hotelChains);
         }
     }
 

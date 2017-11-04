@@ -11,7 +11,6 @@ import { PlayerService } from '../player/player.service';
 import { HotelChainSelectModalComponent } from '../hotel-chain/hotel-chain-select.modal';
 import { HotelChainStocksModalComponent } from '../hotel-chain/hotel-chain-stocks.modal';
 import { HotelChainMergeStocksModalComponent } from '../hotel-chain/hotel-chain-merge-stocks.modal';
-import { AppModule } from '../app.module';
 
 @Injectable()
 export class FirstPersonMoveHandler implements MoveHandler {

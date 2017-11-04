@@ -3,7 +3,6 @@ import { Tile } from '../tile/tile';
 import { HotelChain } from '../hotel-chain/hotel-chain';
 import { Player } from '../player/player';
 import { HotelChainMergeResult } from '../hotel-chain/hotel-chain-merge-result';
-import { StockShare } from '../stock-share/stock-share';
 import { PlayerService } from '../player/player.service';
 import { MoveHandler } from './move-handler.interface';
 

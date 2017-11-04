@@ -1,5 +1,6 @@
 import { Tile } from '../tile/tile';
 import { StockShare } from '../stock-share/stock-share';
+import { StockShareOrder } from '../stock-share/stock-share-order';
 import { HotelChain } from '../hotel-chain/hotel-chain';
 
 export const PlayerType = {
@@ -24,6 +25,7 @@ export class Player {
     stockShares: StockShare[];
     selectedTile: Tile;
     hasPlacedTile: boolean;
+    stockShareOrder: StockShareOrder;
 
     addTile(tile: Tile): void {
         this.tiles.push(tile);

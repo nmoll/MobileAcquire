@@ -4,17 +4,9 @@
       Purchase Stocks
     </ion-title>
 
-    <ion-buttons start>
-      <button ion-button (tap)="onCancel()">
-        <span color="primary" showWhen="ios">
-          Cancel
-        </span>
-        <ion-icon name="md-close" showWhen="core,android,windows"></ion-icon>
-      </button>
-    </ion-buttons>
     <ion-buttons end>
-      <button ion-button [disabled]="!getTotalPrice()" (tap)="onOk()" color="primary">
-          Purchase
+      <button ion-button (tap)="onOk()" color="primary">
+          Done
       </button>
     </ion-buttons>
   </ion-navbar>
@@ -26,22 +18,25 @@
   </div>
 
   <div>
-
       <ion-grid>
         <ion-row>
-          <ion-col col-4 class="stock-placeholder hotel-chain-{{selectedStocks[0] ? selectedStocks[0].hotelChain.type : 0 }}">
-            {{ selectedStocks[0] ? selectedStocks[0].hotelChain.name : 'Available' }}
-          </ion-col>
-          <ion-col col-4 class="stock-placeholder hotel-chain-{{selectedStocks[1] ? selectedStocks[1].hotelChain.type : 0 }}">
-            {{ selectedStocks[1] ? selectedStocks[1].hotelChain.name : 'Available' }}
-          </ion-col>
-          <ion-col col-4 class="stock-placeholder hotel-chain-{{selectedStocks[2] ? selectedStocks[2].hotelChain.type : 0 }}">
-            {{ selectedStocks[2] ? selectedStocks[2].hotelChain.name : 'Available' }}
-          </ion-col>
+          <ng-template ngFor let-stock [ngForOf]="getStockShareOrder().stockShares">
+              <ng-template ngFor let-i [ngForOf]="stock.quantity|times">
+                  <ion-col col-4 class="stock-placeholder hotel-chain-{{ stock.hotelChain.type }}"
+                        (click)="removeStock(stock)">
+                    {{ stock.hotelChain.name }}
+                  </ion-col>
+              </ng-template>
+          </ng-template>
+          <ng-template ngFor let-i [ngForOf]="(3 - getStockShareOrder().getTotalQuantity())|times">
+              <ion-col col-4 class="stock-placeholder">
+                Available
+              </ion-col>
+          </ng-template>
         </ion-row>
       </ion-grid>
 
-      <ion-card *ngFor="let stock of stockShares" (tap)="addStock(stock)">
+      <ion-card *ngFor="let stock of getStockShareOrder().stockShares" (tap)="addStock(stock)">
         <ion-card-header>
           <ion-grid>
             <ion-row>
