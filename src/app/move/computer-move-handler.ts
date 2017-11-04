@@ -69,4 +69,15 @@ export class ComputerMoveHandler implements MoveHandler {
         return promise;
     }
 
+    resolveEndTurn(): Promise<Object> {
+        var resolver;
+        var promise = new Promise(function (resolve) {
+            resolver = resolve;
+        });
+
+        resolver();
+
+        return promise;
+    }
+
 }

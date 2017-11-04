@@ -29,13 +29,10 @@ export class AcquireService {
     }
 
     onMoveComplete(): void {
-        var subscription = this.acquireEventService.endTurnEvent.subscribe(() => {
-            this.playerService.onEndTurn();
-            this.stockShareService.resolvePlayerShares();
-            this.playerService.rotateCurrentPlayer();
-            this.waitForNextMove();
-            subscription.unsubscribe();
-        });
+        this.playerService.onEndTurn();
+        this.stockShareService.resolvePlayerShares();
+        this.playerService.rotateCurrentPlayer();
+        this.waitForNextMove();
     }
 
     waitForNextMove(): void {

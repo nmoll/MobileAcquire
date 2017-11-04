@@ -1,0 +1,33 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>
+            New Game
+        </ion-title>
+        <ion-buttons end>
+            <button ion-button (tap)="startGame()" color="primary">
+                Start
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-card *ngFor="let player of players">
+        <ion-card-content>
+            <ion-segment [(ngModel)]="player.playerType">
+                <ion-segment-button value="1">
+                    Human
+                </ion-segment-button>
+                <ion-segment-button value="2">
+                    Computer
+                </ion-segment-button>
+            </ion-segment>
+            <ion-label stacked>Name</ion-label>
+            <ion-input type="text" [(ngModel)]="player.name"></ion-input>
+        </ion-card-content>
+  </ion-card>
+  <button ion-button block icon-left (tap)="addPlayer()">
+      <ion-icon name="add-circle"></ion-icon>
+      Add Player
+  </button>
+</ion-content>

@@ -2,15 +2,11 @@ import { Injectable } from '@angular/core';
 
 import { Player, PlayerType } from './player';
 import { HotelChain } from '../hotel-chain/hotel-chain';
-import { StockShare } from '../stock-share/stock-share';
-
-import { HotelChainService } from '../hotel-chain/hotel-chain.service';
 
 @Injectable()
 export class PlayerService {
 
     constructor() {
-        this.init();
     }
 
     players: Player[];
@@ -65,16 +61,6 @@ export class PlayerService {
     onEndTurn(): void {
         this.currentPlayer.hasPlacedTile = false;
         this.currentPlayer.selectedTile = null;
-    }
-
-    init(): void {
-        this.players = [];
-        this.players.push(new Player('Nate', PlayerType.FIRST_PERSON));
-        this.players.push(new Player('Kate', PlayerType.FIRST_PERSON));
-        // this.players.push(new Player('Joe', PlayerType.COMPUTER));
-        // this.players.push(new Player('Fred', PlayerType.COMPUTER));
-
-        this.currentPlayer = this.players[0];
     }
 
 }

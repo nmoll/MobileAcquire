@@ -10,6 +10,7 @@ import { HomePage } from '../pages/home/home';
 import { AcquireComponent } from './acquire/acquire.component';
 import { BoardComponent } from './board/board.component';
 import { ScoreboardComponent } from './scoreboard/scoreboard.component';
+import { GameCreateComponent } from './game/game-create.component';
 
 import { AcquireService } from './acquire/acquire.service';
 import { BoardSquareService } from './board/board-square.service';
@@ -34,6 +35,7 @@ import { TimesPipe } from './utils/pipe/times-pipe';
     HomePage,
     AcquireComponent,
     BoardComponent,
+    GameCreateComponent,
     ScoreboardComponent,
     HotelChainSelectModalComponent,
     HotelChainStocksModalComponent,
@@ -52,7 +54,8 @@ import { TimesPipe } from './utils/pipe/times-pipe';
     HotelChainSelectModalComponent,
     HotelChainStocksModalComponent,
     HotelChainMergeStocksModalComponent,
-    ScoreboardComponent
+    ScoreboardComponent,
+    GameCreateComponent
   ],
   providers: [
     StatusBar,

@@ -42,6 +42,9 @@ export class MoveHandlerService {
             })
             .then(() => {
                 return this.discardAndDrawNewTile(tile);
+            })
+            .then(() => {
+                return this.getMoveHandler().resolveEndTurn();
             });
     }
 
@@ -249,7 +252,7 @@ export class MoveHandlerService {
 
     getMoveHandlerForPlayer(player: Player): MoveHandler {
         var moveHandler;
-        switch (player.playerType) {
+        switch (+player.playerType) {
             case PlayerType.FIRST_PERSON:
                 moveHandler = this.firstPersonMoveHandler;
                 break;
@@ -259,5 +262,7 @@ export class MoveHandlerService {
         }
         return moveHandler;
     }
+
+
 
 }

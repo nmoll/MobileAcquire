@@ -2,17 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { ViewController, NavParams } from 'ionic-angular';
 import { HotelChainMergeResult } from '../hotel-chain/hotel-chain-merge-result';
 import { Player } from '../player/player';
-import { HotelChainService } from '../hotel-chain/hotel-chain.service';
 
 @Component({
-    //moduleId: module.id,
     selector: 'hotel-chain-merge-stocks-modal',
     templateUrl: 'hotel-chain-merge-stocks.modal.html'
 })
 export class HotelChainMergeStocksModalComponent implements OnInit {
 
     constructor (
-      private hotelChainService: HotelChainService,
       private viewCtrl: ViewController,
       private params: NavParams
     ) {

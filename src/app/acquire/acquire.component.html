@@ -1,6 +1,8 @@
 <ion-row style="height:100%">
     <ion-col col-3 style="padding:0;" text-center>
-        <button ion-button full large (tap)="showScoreboard()">Scoreboard</button>
+        <button icon-left ion-button full large (tap)="showScoreboard()">
+            <ion-icon name="clipboard"></ion-icon> Scoreboard
+        </button>
         <button ion-button round outline large [disabled]="!canPlaceTile()" (click)="placeTile()">Place Tile</button>
         <button ion-button round outline large [disabled]="!canBuyStocks()" (click)="buyStocks()">Buy Stocks</button>
         <button ion-button round outline large [disabled]="!isTilePlaced()" (click)="endTurn()">End Turn</button>

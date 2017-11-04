@@ -122,4 +122,17 @@ export class FirstPersonMoveHandler implements MoveHandler {
         return hotelChains.length > 0 && this.playerService.currentPlayer.cash > 0;
     }
 
+    resolveEndTurn(): Promise<Object> {
+        var resolver;
+        var promise = new Promise(function (resolve) {
+            resolver = resolve;
+        });
+        var subscription = this.acquireEventService.endTurnEvent.subscribe(() => {
+            subscription.unsubscribe();
+            resolver();
+        });
+
+        return promise;
+    }
+
 }

@@ -4,14 +4,12 @@ import { StockShare } from './stock-share';
 import { HotelChain } from '../hotel-chain/hotel-chain'
 
 import { PlayerService } from '../player/player.service';
-import { HotelChainService } from '../hotel-chain/hotel-chain.service';
 
 @Injectable()
 export class StockShareService {
 
     constructor(
-        private playerService: PlayerService,
-        private hotelChainService: HotelChainService
+        private playerService: PlayerService
     ) {}
 
     getAvailableStockShares(hotelChain: HotelChain): number {

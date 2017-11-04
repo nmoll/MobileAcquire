@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { AcquireComponent } from '../../app/acquire/acquire.component';
+import { GameCreateComponent } from '../../app/game/game-create.component';
 
 @Component({
   selector: 'page-home',
@@ -13,7 +13,7 @@ export class HomePage {
   }
 
   newGame() {
-    this.navCtrl.push(AcquireComponent);
+    this.navCtrl.push(GameCreateComponent);
   }
 
 }

@@ -9,4 +9,5 @@ export interface MoveHandler {
     chooseMerge(hotelChains: HotelChain[]): Promise<HotelChainMergeResult>;
     handleMergeStocks(player: Player, mergeResult: HotelChainMergeResult): Promise<Object>;
     buyStocks(): Promise<Object>;
+    resolveEndTurn(): Promise<Object>;
 }
