@@ -20,7 +20,11 @@ export class HotelChainService {
     }
 
     getActiveHotelChains(): HotelChain[] {
-        return this.getHotelChains().filter(hotelChain => hotelChain.tiles.length > 0)
+        return this.getHotelChains().filter(hotelChain => hotelChain.tiles.length > 0);
+    }
+
+    isAllHotelChainsActive(): boolean {
+        return this.getActiveHotelChains().length == this.hotelChains.length;
     }
 
     getMergeMajorityBonus(hotelChain: HotelChain): number {

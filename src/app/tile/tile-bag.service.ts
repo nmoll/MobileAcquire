@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
 
 import { Tile } from './tile';
-import { BOARD_WIDTH, BOARD_HEIGHT, BOARD_LETTERS } from '../board/board.component';
+
+export const BOARD_LETTERS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
+export const BOARD_WIDTH = 12;
+export const BOARD_HEIGHT = 9;
 
 @Injectable()
 export class TileBagService {

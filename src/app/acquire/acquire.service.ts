@@ -5,7 +5,6 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { AcquireEventService } from './acquire-event.service';
 import { PlayerService } from '../player/player.service';
 import { MoveHandlerService } from '../move/move-handler.service';
-import { TileBagService } from '../tile/tile-bag.service';
 import { BoardSquareService } from '../board/board-square.service';
 import { StockShareService } from '../stock-share/stock-share.service';
 
@@ -17,25 +16,14 @@ export class AcquireService {
         private boardSquareService: BoardSquareService,
         private playerService: PlayerService,
         private moveHandlerService: MoveHandlerService,
-        private tileBagService: TileBagService,
         private stockShareService: StockShareService,
         private screenOrientation: ScreenOrientation,
         private platform: Platform
     ) {}
 
-    grabTiles(): void {
-        var players = this.playerService.getPlayers();
-        for (let player of players) {
-            for (var i = 0; i < 6; i++) {
-                player.addTile(this.tileBagService.pick());
-            }
-        }
-    }
-
-    onMoveComplete(): void {
-        this.playerService.onEndTurn();
-        this.stockShareService.resolvePlayerShares();
-        this.playerService.rotateCurrentPlayer();
+    initGame(): void {
+        this.lockLandscapeOrientation();
+        this.playerService.initPlayerTiles();
         this.waitForNextMove();
     }
 
@@ -48,16 +36,17 @@ export class AcquireService {
         });
     }
 
-    lockLandscapeOrientation(): void {
+    private onMoveComplete(): void {
+        this.playerService.onEndTurn();
+        this.stockShareService.resolvePlayerShares();
+        this.playerService.rotateCurrentPlayer();
+        this.waitForNextMove();
+    }
+
+    private lockLandscapeOrientation(): void {
         if (this.platform.is('cordova')) {
             this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.LANDSCAPE);
         }
-    }
-
-    initGame(): void {
-        this.lockLandscapeOrientation();
-        this.grabTiles();
-        this.waitForNextMove();
     }
 
 }

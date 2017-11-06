@@ -8,7 +8,6 @@ import { Player, PlayerType } from '../player/player';
 
 import { HotelChainService } from '../hotel-chain/hotel-chain.service';
 import { PlayerService } from '../player/player.service';
-import { TileBagService } from '../tile/tile-bag.service';
 
 import { MoveHandler } from './move-handler.interface';
 import { FirstPersonMoveHandler } from './first-person-move-handler';
@@ -21,8 +20,7 @@ export class MoveHandlerService {
         private hotelChainService: HotelChainService,
         private playerService: PlayerService,
         private firstPersonMoveHandler: FirstPersonMoveHandler,
-        private computerMoveHandler: ComputerMoveHandler,
-        private tileBagService: TileBagService
+        private computerMoveHandler: ComputerMoveHandler
     ) {}
 
     getMove(): Promise<Tile> {
@@ -71,13 +69,19 @@ export class MoveHandlerService {
     }
 
     discardAndDrawNewTile(tile: Tile): Promise<Object> {
-        this.playerService.currentPlayer.removeTile(tile);
-        if (!this.tileBagService.isEmpty()) {
-            this.playerService.currentPlayer.addTile(this.tileBagService.pick());
-        }
+        this.playerService.discardAndDrawNewTile(tile);
         return new Promise(function (resolve) {
             resolve();
         });
+    }
+
+    isTilePlayable(adjacentTiles: Tile[]): boolean {
+        if (this.isNewChain(adjacentTiles)) {
+            if (this.hotelChainService.isAllHotelChainsActive()) {
+                return false;
+            }
+        }
+        return true;
     }
 
     isNewChain(adjacentTiles: Tile[]): boolean {
@@ -146,16 +150,13 @@ export class MoveHandlerService {
         return this.getMergeResult(hotelChains[0], hotelChains[1])
             .then((mergeResult) => {
                 this.rewardMajorityAndMinorityStockholders(mergeResult.source);
-                console.log('rewardMajorityAndMinorityStockholders');
                 return mergeResult;
             })
             .then((mergeResult) => {
                 var player = this.playerService.currentPlayer;
-                console.log('resolve merge stocks');
                 return this.resolveMergeStocks(player, player, mergeResult);
             })
             .then((mergeResult) => {
-                console.log('merge hotel chains');
                 return this.mergeHotelChains(tile, adjacentTiles, mergeResult);
             });
     }

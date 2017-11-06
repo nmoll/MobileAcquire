@@ -1,12 +1,23 @@
 import { Injectable } from '@angular/core';
 
-import { Player } from './player';
+import { Player, PlayerType } from './player';
 import { HotelChain } from '../hotel-chain/hotel-chain';
+import { Tile } from '../tile/tile';
+import { BoardSquare } from '../board/board-square';
+
+import { AcquireEventService } from '../acquire/acquire-event.service';
+import { TileBagService } from '../tile/tile-bag.service';
 
 @Injectable()
 export class PlayerService {
 
-    constructor() {
+    constructor(
+        private tileBagService: TileBagService,
+        private acquireEventService: AcquireEventService
+    ) {
+        this.acquireEventService.tileSelectedEvent.subscribe((tile) => {
+            this.onTileSelected(tile);
+        });
     }
 
     players: Player[];
@@ -18,6 +29,25 @@ export class PlayerService {
 
     rotateCurrentPlayer(): void {
         this.currentPlayer = this.getNextPlayerInList(this.currentPlayer);
+    }
+
+    discardAndDrawNewTile(tile: Tile): void {
+        this.currentPlayer.removeTile(tile);
+        if (!this.tileBagService.isEmpty()) {
+            this.currentPlayer.addTile(this.tileBagService.pick());
+        }
+    }
+
+    isCurrentPlayerTile(square: BoardSquare): boolean {
+        var currentPlayer = this.currentPlayer;
+        if (currentPlayer.playerType != PlayerType.FIRST_PERSON) return false;
+
+        for (let tile of currentPlayer.tiles) {
+            if (tile.boardSquareId === square.id) {
+                return true;
+            }
+        }
+        return false;
     }
 
     getNextPlayerInList(player: Player): Player {
@@ -58,9 +88,21 @@ export class PlayerService {
         });
     }
 
+    initPlayerTiles(): void {
+        for (let player of this.players) {
+            for (var i = 0; i < 6; i++) {
+                player.addTile(this.tileBagService.pick());
+            }
+        }
+    }
+
     onEndTurn(): void {
         this.currentPlayer.hasPlacedTile = false;
         this.currentPlayer.selectedTile = null;
+    }
+
+    onTileSelected(tile: Tile): void {
+        this.currentPlayer.selectedTile = tile;
     }
 
 }

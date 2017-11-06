@@ -1,4 +1,4 @@
-import { BOARD_LETTERS } from './board.component';
+import { BOARD_LETTERS } from './board-square.service';
 
 import { Tile } from '../tile/tile';
 
@@ -15,7 +15,7 @@ export class BoardSquare {
     positionX: number;
     positionY: number;
     tile: Tile;
-    
+
     getDisplay(): string {
         return this.positionX + BOARD_LETTERS[this.positionY - 1];
     }
