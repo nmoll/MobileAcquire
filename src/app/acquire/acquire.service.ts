@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { Platform } from 'ionic-angular';
+import { ScreenOrientation } from '@ionic-native/screen-orientation';
 
 import { AcquireEventService } from './acquire-event.service';
 import { PlayerService } from '../player/player.service';
@@ -16,7 +18,9 @@ export class AcquireService {
         private playerService: PlayerService,
         private moveHandlerService: MoveHandlerService,
         private tileBagService: TileBagService,
-        private stockShareService: StockShareService
+        private stockShareService: StockShareService,
+        private screenOrientation: ScreenOrientation,
+        private platform: Platform
     ) {}
 
     grabTiles(): void {
@@ -44,7 +48,14 @@ export class AcquireService {
         });
     }
 
+    lockLandscapeOrientation(): void {
+        if (this.platform.is('cordova')) {
+            this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.LANDSCAPE);
+        }
+    }
+
     initGame(): void {
+        this.lockLandscapeOrientation();
         this.grabTiles();
         this.waitForNextMove();
     }
