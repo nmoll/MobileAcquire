@@ -5,8 +5,6 @@ import { Tile } from '../tile/tile';
 import { PlayerType } from '../player/player';
 
 import { AcquireEventService } from '../acquire/acquire-event.service';
-import { PlayerService } from '../player/player.service';
-import { MoveHandlerService } from  '../move/move-handler.service';
 
 export const BOARD_LETTERS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
 export const BOARD_WIDTH = 12;
@@ -16,9 +14,7 @@ export const BOARD_HEIGHT = 9;
 export class BoardSquareService {
 
     constructor(
-        private playerService: PlayerService,
-        private acquireEventService: AcquireEventService,
-        private moveHandlerService: MoveHandlerService
+        private acquireEventService: AcquireEventService
     ) {
         this.init();
     }
@@ -53,53 +49,7 @@ export class BoardSquareService {
             .filter(tile => tile != null);
     }
 
-    isSquarePlayableForPlayer(square: BoardSquare): boolean {
-        return this.playerHasTileForSquare(square) && !this.playerService.currentPlayer.hasPlacedTile;
-    }
-
-    private playerHasTileForSquare(square: BoardSquare): boolean {
-        var currentPlayer = this.playerService.currentPlayer;
-        if (currentPlayer.playerType != PlayerType.FIRST_PERSON) return false;
-
-        for (let tile of currentPlayer.tiles) {
-            if (tile.boardSquareId === square.id) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    onSquareSelected(square: BoardSquare): void {
-        if (this.isSquarePlayableForPlayer(square)) {
-            var tile = this.playerService.currentPlayer.tiles.filter(tile => tile.boardSquareId === square.id)[0];
-            var adjacentTiles = this.getAdjacentTiles(square);
-            if (this.moveHandlerService.isTilePlayable(adjacentTiles)) {
-                this.acquireEventService.notifyTileSelected(tile);
-            }
-        }
-    }
-
-    getBoardSquareClass(square: BoardSquare): string {
-        var result = '';
-
-        if (square.tile || this.isCurrentSelection(square)) {
-            result += 'hasTile ';
-        }
-        if (this.isPartOfHotelChain(square)) {
-            result += 'hotel-chain-' + square.tile.hotelChain.type;
-        } else if (this.isSquarePlayableForPlayer(square)) {
-            result += 'player-tile';
-        }
-
-        return result;
-    }
-
-    private isCurrentSelection(square: BoardSquare): boolean {
-        var selectedTile = this.playerService.currentPlayer.selectedTile;
-        return selectedTile && selectedTile.boardSquareId === square.id;
-    }
-
-    private isPartOfHotelChain(square: BoardSquare): boolean {
+    isPartOfHotelChain(square: BoardSquare): boolean {
         return !!square.tile && !!square.tile.hotelChain;
     }
 

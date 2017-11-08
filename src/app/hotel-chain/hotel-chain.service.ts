@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { HotelChain, HotelChainType } from './hotel-chain';
+import { Tile } from '../tile/tile';
 
 @Injectable()
 export class HotelChainService {
@@ -33,6 +34,14 @@ export class HotelChainService {
 
     getMergeMinorityBonus(hotelChain: HotelChain): number {
         return hotelChain.getStockPrice() * 5;
+    }
+
+    findAllByTiles(tiles: Tile[]) {
+        var hotelChains = tiles
+            .map(t => t.hotelChain)
+            .filter(t => !!t);
+        var uniqueSet = new Set(hotelChains);
+        return Array.from(uniqueSet);
     }
 
     init(): void {

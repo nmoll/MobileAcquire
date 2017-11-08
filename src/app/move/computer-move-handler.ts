@@ -3,15 +3,22 @@ import { Tile } from '../tile/tile';
 import { HotelChain } from '../hotel-chain/hotel-chain';
 import { Player } from '../player/player';
 import { HotelChainMergeResult } from '../hotel-chain/hotel-chain-merge-result';
+
+import { BoardSquareService } from '../board/board-square.service';
 import { PlayerService } from '../player/player.service';
-import { MoveHandler } from './move-handler.interface';
+import { HotelChainService } from '../hotel-chain/hotel-chain.service';
+import { MoveHandler } from './move-handler';
 
 @Injectable()
-export class ComputerMoveHandler implements MoveHandler {
+export class ComputerMoveHandler extends MoveHandler {
 
     constructor(
-        private playerService: PlayerService
-    ) {}
+        hotelChainService: HotelChainService,
+        private playerService: PlayerService,
+        private boardSquareService: BoardSquareService
+    ) {
+        super(hotelChainService);
+    }
 
     getMove(): Promise<Tile> {
         var resolver;
@@ -19,7 +26,16 @@ export class ComputerMoveHandler implements MoveHandler {
             resolver = resolve;
         });
 
-        setTimeout(t => resolver(this.playerService.currentPlayer.tiles[0]), 1000);
+        setTimeout(t => {
+            for (let tile of this.playerService.currentPlayer.tiles) {
+                var square = this.boardSquareService.findSquareById(tile.boardSquareId);
+                var adjacentTiles = this.boardSquareService.getAdjacentTiles(square);
+                // if (super.isTilePlayable(adjacentTiles)) {
+                    resolver(tile)
+                    break;
+                // }
+            }
+        }, 1000);
 
         return promise;
     }

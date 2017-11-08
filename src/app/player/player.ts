@@ -35,6 +35,19 @@ export class Player {
         return this.tiles.includes(tile);
     }
 
+    hasTileForBoardSquareId(boardSquareId: number): boolean {
+        return !!this.getTileBySquareId(boardSquareId);
+    }
+
+    getTileBySquareId(boardSquareId: number): Tile {
+        for (let tile of this.tiles) {
+            if (tile.boardSquareId === boardSquareId) {
+                return tile;
+            }
+        }
+        return null;
+    }
+
     removeTile(tile: Tile): void {
         var index = this.tiles.indexOf(tile);
         this.tiles.splice(index, 1);

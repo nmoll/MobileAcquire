@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { TranslateService } from '@ngx-translate/core';
 
 import { Player, PlayerType } from '../player/player';
 
@@ -14,15 +15,18 @@ import { PlayerService } from '../player/player.service';
 export class GameCreateComponent implements OnInit  {
 
     players: Player[];
+    playerLabel: string;
 
     constructor(
         private playerService: PlayerService,
-        private navCtrl: NavController
+        private navCtrl: NavController,
+        private translateService: TranslateService
     ) {}
 
-    addPlayer(): void {
-        var name = 'Player ' + (this.players.length + 1);
-        this.players.push(new Player(name, PlayerType.COMPUTER));
+    addPlayer(playerType: number): void {
+        var name = this.playerLabel + ' ' + (this.players.length + 1);
+        var type = playerType || PlayerType.COMPUTER;
+        this.players.push(new Player(name, type));
     }
 
     removePlayer(player: Player): void {
@@ -36,10 +40,17 @@ export class GameCreateComponent implements OnInit  {
         this.navCtrl.push(AcquireComponent);
     }
 
-    ngOnInit(): void {
+    private initPlayers(): void {
         this.players = [];
-        this.players.push(new Player("Player 1", PlayerType.FIRST_PERSON));
-        this.players.push(new Player("Player 2", PlayerType.COMPUTER));
+        this.addPlayer(PlayerType.FIRST_PERSON);
+        this.addPlayer(PlayerType.COMPUTER);
+    }
+
+    ngOnInit(): void {
+        this.translateService.get('GAME.PLAYER').subscribe((value) => {
+            this.playerLabel = value;
+            this.initPlayers();
+        });
     }
 
 }

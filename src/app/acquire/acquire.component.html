@@ -1,13 +1,13 @@
-<ion-row style="height:100%">
-    <ion-col col-3 style="padding:0;" text-center>
+<ion-row class="acquire-game">
+    <ion-col col-3 text-center class="acquire-game-col">
         <button icon-left ion-button full large (tap)="showScoreboard()">
-            <ion-icon name="clipboard"></ion-icon> Scoreboard
+            <ion-icon name="clipboard"></ion-icon> {{ "ACTIONS.SCOREBOARD" | translate }}
         </button>
-        <button ion-button round outline large [disabled]="!canPlaceTile()" (click)="placeTile()">Place Tile</button>
-        <button ion-button round outline large [disabled]="!canBuyStocks()" (click)="buyStocks()">Buy Stocks</button>
-        <button ion-button round outline large [disabled]="!isTilePlaced()" (click)="endTurn()">End Turn</button>
+        <button ion-button round outline large [disabled]="!canPlaceTile()" (click)="placeTile()">{{ "ACTIONS.PLACE_TILE" | translate }}</button>
+        <button ion-button round outline large [disabled]="!canBuyStocks()" (click)="buyStocks()">{{ "ACTIONS.BUY_STOCKS" | translate }}</button>
+        <button ion-button round outline large [disabled]="!isTilePlaced()" (click)="endTurn()">{{ "ACTIONS.END_TURN" | translate }}</button>
     </ion-col>
-    <ion-col col-9 style="padding:0;">
+    <ion-col col-9 class="acquire-game-col">
         <board></board>
     </ion-col>
 </ion-row>

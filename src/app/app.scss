@@ -24,6 +24,10 @@
     bottom: 0;
 }
 
+.acquire-game {
+    height: 100%;
+}
+
 .table {
     border-collapse: collapse;
     width: 100%;
@@ -226,6 +230,10 @@
     box-shadow: 0 0 10px 0px #02bb00;
     border-color: #02bb00;
     cursor: pointer;
+}
+.boardSquare.player-tile.not-playable {
+    box-shadow: 0 0 10px 0px #b50404;
+    border-color: #b50404;
 }
 .board {
   color: white;

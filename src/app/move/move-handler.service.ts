@@ -9,7 +9,7 @@ import { Player, PlayerType } from '../player/player';
 import { HotelChainService } from '../hotel-chain/hotel-chain.service';
 import { PlayerService } from '../player/player.service';
 
-import { MoveHandler } from './move-handler.interface';
+import { MoveHandler } from './move-handler';
 import { FirstPersonMoveHandler } from './first-person-move-handler';
 import { ComputerMoveHandler } from './computer-move-handler';
 
@@ -76,35 +76,22 @@ export class MoveHandlerService {
     }
 
     isTilePlayable(adjacentTiles: Tile[]): boolean {
-        if (this.isNewChain(adjacentTiles)) {
-            if (this.hotelChainService.isAllHotelChainsActive()) {
-                return false;
-            }
-        }
-        return true;
+        return this.getMoveHandler().isTilePlayable(adjacentTiles);
     }
 
-    isNewChain(adjacentTiles: Tile[]): boolean {
+    private isNewChain(adjacentTiles: Tile[]): boolean {
         return adjacentTiles.length > 0 &&
-            this.getAdjacentHotelChains(adjacentTiles).length === 0;
+            this.hotelChainService.findAllByTiles(adjacentTiles).length === 0;
     }
 
     isExpandingChain(adjacentTiles: Tile[]): boolean {
         return adjacentTiles.length > 0 &&
-            this.getAdjacentHotelChains(adjacentTiles).length === 1;
+            this.hotelChainService.findAllByTiles(adjacentTiles).length === 1;
     }
 
     isMerger(adjacentTiles: Tile[]): boolean {
         return adjacentTiles.length > 0 &&
-            this.getAdjacentHotelChains(adjacentTiles).length > 1;
-    }
-
-    getAdjacentHotelChains(adjacentTiles: Tile[]): HotelChain[] {
-        var surroundingHotelChains = adjacentTiles
-            .map(t => t.hotelChain)
-            .filter(t => !!t);
-        var uniqueSet = new Set(surroundingHotelChains);
-        return Array.from(uniqueSet);
+            this.hotelChainService.findAllByTiles(adjacentTiles).length > 1;
     }
 
     chooseHotelChainToStart(tile: Tile, adjacentTiles: Tile[]): Promise<Object> {
@@ -128,7 +115,7 @@ export class MoveHandlerService {
     }
 
     expandHotelChain(tile: Tile, adjacentTiles: Tile[]): Promise<Object> {
-        var hotelChains = this.getAdjacentHotelChains(adjacentTiles);
+        var hotelChains = this.hotelChainService.findAllByTiles(adjacentTiles);
         hotelChains.forEach(function (hotelChain) {
             hotelChain.addTile(tile);
             for (let adjacentTile of adjacentTiles) {
@@ -142,7 +129,7 @@ export class MoveHandlerService {
     }
 
     resolveMerge(tile: Tile, adjacentTiles: Tile[]): Promise<Object> {
-        var hotelChains = this.getAdjacentHotelChains(adjacentTiles);
+        var hotelChains = this.hotelChainService.findAllByTiles(adjacentTiles);
         if (hotelChains.length > 2) {
             throw new Error('Merging 3 hotels not supported yet');
         }

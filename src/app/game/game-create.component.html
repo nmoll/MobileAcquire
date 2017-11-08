@@ -1,11 +1,11 @@
 <ion-header>
     <ion-navbar>
         <ion-title>
-            New Game
+            {{ "GAME.NEW_GAME" | translate }}
         </ion-title>
         <ion-buttons end>
             <button ion-button (tap)="startGame()" color="primary">
-                Start
+                {{ "GAME.START" | translate }}
             </button>
         </ion-buttons>
     </ion-navbar>
@@ -17,7 +17,7 @@
             <ion-grid>
                 <ion-row>
                     <ion-col col-10>
-                        Player {{ i + 1 }}
+                        {{ "GAME.PLAYER" | translate }} {{ i + 1 }}
                     </ion-col>
                     <ion-col col-2 text-right right>
                         <button ion-button small color="danger" (tap)="removePlayer(player)" *ngIf="players.length > 2">
@@ -29,20 +29,20 @@
         </ion-card-header>
         <ion-card-content>
             <ion-item>
-                <ion-label fixed color="primary">Name</ion-label>
+                <ion-label fixed color="primary">{{ "PLAYER.NAME" | translate }}</ion-label>
                 <ion-input placeholder="Player Name" type="text" [(ngModel)]="player.name"></ion-input>
             </ion-item>
             <ion-item>
-                <ion-label fixed color="primary">Type</ion-label>
+                <ion-label fixed color="primary">{{ "PLAYER.TYPE" | translate }}</ion-label>
                 <ion-select [(ngModel)]="player.playerType">
-                    <ion-option value="1">Human</ion-option>
-                    <ion-option value="2">Computer</ion-option>
+                    <ion-option value="1">{{ "PLAYER.TYPE_HUMAN" | translate }}</ion-option>
+                    <ion-option value="2">{{ "PLAYER.TYPE_COMPUTER" | translate }}</ion-option>
                 </ion-select>
             </ion-item>
         </ion-card-content>
   </ion-card>
   <button ion-button block icon-left (tap)="addPlayer()" *ngIf="players.length < 6">
       <ion-icon name="add-circle"></ion-icon>
-      Add Player
+      {{ "GAME.ADD_PLAYER" | translate }}
   </button>
 </ion-content>

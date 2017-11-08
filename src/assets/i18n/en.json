@@ -1,0 +1,20 @@
+{
+    "ACTIONS": {
+        "SCOREBOARD": "Scoreboard",
+        "PLACE_TILE": "Place Tile",
+        "BUY_STOCKS": "Buy Stocks",
+        "END_TURN": "End Turn"
+    },
+    "GAME": {
+        "NEW_GAME": "New Game",
+        "START": "Start",
+        "PLAYER": "Player",
+        "ADD_PLAYER": "Add Player"
+    },
+    "PLAYER": {
+        "NAME": "Name",
+        "TYPE": "Type",
+        "TYPE_HUMAN": "Human",
+        "TYPE_COMPUTER": "Computer"
+    }
+}

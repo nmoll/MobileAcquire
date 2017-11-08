@@ -52,7 +52,6 @@ export class AcquireComponent implements OnInit {
             return;
         }
         this.acquireEventService.notifyTilePlaced(this.playerService.currentPlayer.selectedTile);
-        this.playerService.currentPlayer.selectedTile = null;
     }
 
     buyStocks(): void {

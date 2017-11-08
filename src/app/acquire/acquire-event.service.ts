@@ -6,20 +6,20 @@ import { Tile } from '../tile/tile';
 @Injectable()
 export class AcquireEventService {
 
-    private tilePlacedSource = new Subject<Tile>();
     private tileSelectedSource = new Subject<Tile>();
+    private tilePlacedSource = new Subject<Tile>();
     private endTurnSource = new Subject();
 
-    tilePlacedEvent = this.tilePlacedSource.asObservable();
     tileSelectedEvent = this.tileSelectedSource.asObservable();
+    tilePlacedEvent = this.tilePlacedSource.asObservable();
     endTurnEvent = this.endTurnSource.asObservable();
-
-    notifyTilePlaced(tile: Tile) {
-        this.tilePlacedSource.next(tile);
-    }
 
     notifyTileSelected(tile: Tile) {
         this.tileSelectedSource.next(tile);
+    }
+
+    notifyTilePlaced(tile: Tile) {
+        this.tilePlacedSource.next(tile);
     }
 
     notifyEndTurn() {

@@ -1,5 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -29,6 +32,7 @@ import { HotelChainStocksModalComponent } from './hotel-chain/hotel-chain-stocks
 import { HotelChainMergeStocksModalComponent } from './hotel-chain/hotel-chain-merge-stocks.modal';
 
 import { TimesPipe } from './utils/pipe/times-pipe';
+import { HttpLoaderFactory } from './utils/factory/http-loader-factory';
 
 @NgModule({
   declarations: [
@@ -45,7 +49,15 @@ import { TimesPipe } from './utils/pipe/times-pipe';
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    HttpClientModule,
+    IonicModule.forRoot(MyApp),
+    TranslateModule.forRoot({
+        loader: {
+            provide: TranslateLoader,
+            useFactory: HttpLoaderFactory,
+            deps: [HttpClient]
+        }
+    })
   ],
   bootstrap: [IonicApp],
   entryComponents: [

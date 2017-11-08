@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ModalController } from 'ionic-angular';
-import { MoveHandler } from './move-handler.interface';
+import { MoveHandler } from './move-handler';
 import { HotelChain } from '../hotel-chain/hotel-chain';
 import { HotelChainMergeResult } from '../hotel-chain/hotel-chain-merge-result';
 import { Tile } from '../tile/tile';
@@ -13,14 +13,16 @@ import { HotelChainStocksModalComponent } from '../hotel-chain/hotel-chain-stock
 import { HotelChainMergeStocksModalComponent } from '../hotel-chain/hotel-chain-merge-stocks.modal';
 
 @Injectable()
-export class FirstPersonMoveHandler implements MoveHandler {
+export class FirstPersonMoveHandler extends MoveHandler {
 
     constructor(
-        private hotelChainService: HotelChainService,
+        hotelChainService: HotelChainService,
         private acquireEventService: AcquireEventService,
         private playerService: PlayerService,
         private modalCtrl: ModalController
-    ) {}
+    ) {
+        super(hotelChainService);
+    }
 
     getMove(): Promise<Tile> {
         var resolver;
@@ -115,11 +117,6 @@ export class FirstPersonMoveHandler implements MoveHandler {
         modal.present();
 
         return promise;
-    }
-
-    canBuyStocks(): boolean {
-        var hotelChains = this.hotelChainService.getHotelChains().filter(hotelChain => hotelChain.tiles.length > 0);
-        return hotelChains.length > 0 && this.playerService.currentPlayer.cash > 0;
     }
 
     resolveEndTurn(): Promise<Object> {
