@@ -30,10 +30,10 @@ export class ComputerMoveHandler extends MoveHandler {
             for (let tile of this.playerService.currentPlayer.tiles) {
                 var square = this.boardSquareService.findSquareById(tile.boardSquareId);
                 var adjacentTiles = this.boardSquareService.getAdjacentTiles(square);
-                // if (super.isTilePlayable(adjacentTiles)) {
+                if (super.isTilePlayable(adjacentTiles)) {
                     resolver(tile)
                     break;
-                // }
+                }
             }
         }, 1000);
 

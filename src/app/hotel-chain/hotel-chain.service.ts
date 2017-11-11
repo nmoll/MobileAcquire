@@ -28,6 +28,30 @@ export class HotelChainService {
         return this.getActiveHotelChains().length == this.hotelChains.length;
     }
 
+    isAllHotelChainsSafe(): boolean {
+        var hotelChains = this.getActiveHotelChains();
+        if (hotelChains.length === 0) {
+            return false;
+        }
+
+        for (let hotelChain of hotelChains) {
+            if (hotelChain.tiles.length < 11) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    isAnyHotelChainFullyMatured(): boolean {
+        var hotelChains = this.getActiveHotelChains();
+        for (let hotelChain of hotelChains) {
+            if (hotelChain.tiles.length >= 41) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     getMergeMajorityBonus(hotelChain: HotelChain): number {
         return hotelChain.getStockPrice() * 10;
     }

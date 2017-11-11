@@ -6,6 +6,7 @@
         <button ion-button round outline large [disabled]="!canPlaceTile()" (click)="placeTile()">{{ "ACTIONS.PLACE_TILE" | translate }}</button>
         <button ion-button round outline large [disabled]="!canBuyStocks()" (click)="buyStocks()">{{ "ACTIONS.BUY_STOCKS" | translate }}</button>
         <button ion-button round outline large [disabled]="!isTilePlaced()" (click)="endTurn()">{{ "ACTIONS.END_TURN" | translate }}</button>
+        <button ion-button round large *ngIf="canEndGame()" (click)="endGame()">{{ "ACTIONS.END_GAME" | translate }}</button>
     </ion-col>
     <ion-col col-9 class="acquire-game-col">
         <board></board>

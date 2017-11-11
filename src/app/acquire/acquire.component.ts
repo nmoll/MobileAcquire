@@ -62,4 +62,12 @@ export class AcquireComponent implements OnInit {
         this.acquireEventService.notifyEndTurn();
     }
 
+    canEndGame(): boolean {
+        return this.moveHandlerService.canEndGame();
+    }
+
+    endGame(): void {
+
+    }
+
 }

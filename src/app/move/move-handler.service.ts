@@ -79,6 +79,10 @@ export class MoveHandlerService {
         return this.getMoveHandler().isTilePlayable(adjacentTiles);
     }
 
+    canEndGame(): boolean {
+        return this.getMoveHandler().canEndGame();
+    }
+
     private isNewChain(adjacentTiles: Tile[]): boolean {
         return adjacentTiles.length > 0 &&
             this.hotelChainService.findAllByTiles(adjacentTiles).length === 0;

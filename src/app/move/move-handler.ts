@@ -26,6 +26,11 @@ export abstract class MoveHandler {
         return true;
     }
 
+    canEndGame(): boolean {
+        return this.hotelChainService.isAllHotelChainsSafe() ||
+            this.hotelChainService.isAnyHotelChainFullyMatured();
+    }
+
     private isNewChain(adjacentTiles: Tile[]): boolean {
         return adjacentTiles.length > 0 &&
             this.hotelChainService.findAllByTiles(adjacentTiles).length === 0;

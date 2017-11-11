@@ -3,7 +3,8 @@
         "SCOREBOARD": "Scoreboard",
         "PLACE_TILE": "Place Tile",
         "BUY_STOCKS": "Buy Stocks",
-        "END_TURN": "End Turn"
+        "END_TURN": "End Turn",
+        "END_GAME": "End Game"
     },
     "GAME": {
         "NEW_GAME": "New Game",
