@@ -4,6 +4,7 @@ import { HotelChain } from '../hotel-chain/hotel-chain';
 import { Player } from '../player/player';
 import { HotelChainMergeResult } from '../hotel-chain/hotel-chain-merge-result';
 
+import { AcquireEventService } from '../acquire/acquire-event.service';
 import { BoardSquareService } from '../board/board-square.service';
 import { PlayerService } from '../player/player.service';
 import { HotelChainService } from '../hotel-chain/hotel-chain.service';
@@ -14,6 +15,7 @@ export class ComputerMoveHandler extends MoveHandler {
 
     constructor(
         hotelChainService: HotelChainService,
+        private acquireEventService: AcquireEventService,
         private playerService: PlayerService,
         private boardSquareService: BoardSquareService
     ) {
@@ -32,6 +34,7 @@ export class ComputerMoveHandler extends MoveHandler {
                 var adjacentTiles = this.boardSquareService.getAdjacentTiles(square);
                 if (super.isTilePlayable(adjacentTiles)) {
                     resolver(tile)
+                    this.acquireEventService.notifyTilePlaced(tile);
                     break;
                 }
             }

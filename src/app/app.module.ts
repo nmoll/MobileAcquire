@@ -24,6 +24,7 @@ import { AcquireEventService } from './acquire/acquire-event.service';
 import { TileBagService } from './tile/tile-bag.service';
 import { MoveHandlerService } from './move/move-handler.service';
 import { StockShareService } from './stock-share/stock-share.service';
+import { NotificationService } from './notification/notification.service';
 import { FirstPersonMoveHandler } from './move/first-person-move-handler';
 import { ComputerMoveHandler } from './move/computer-move-handler';
 
@@ -84,6 +85,7 @@ import { HttpLoaderFactory } from './utils/factory/http-loader-factory';
     TileBagService,
     MoveHandlerService,
     StockShareService,
+    NotificationService,
     FirstPersonMoveHandler,
     ComputerMoveHandler
   ]

@@ -9,7 +9,6 @@ import { AcquireComponent } from '../acquire/acquire.component';
 
 import { BoardSquareService } from '../board/board-square.service';
 import { GameService } from './game.service';
-import { PlayerService } from '../player/player.service';
 import { TileBagService } from '../tile/tile-bag.service';
 import { HotelChainService } from '../hotel-chain/hotel-chain.service';
 
@@ -25,7 +24,6 @@ export class GameCreateComponent implements OnInit  {
     constructor(
         private gameService: GameService,
         private boardSquareService: BoardSquareService,
-        private playerService: PlayerService,
         private navCtrl: NavController,
         private translateService: TranslateService,
         private tileBagService: TileBagService,

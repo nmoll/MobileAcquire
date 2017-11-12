@@ -2,5 +2,6 @@
     <div *ngFor="let square of squares"
         class="boardSquare {{getBoardSquareClass(square)}}"
         (tap)="onSquareSelected(square)">
+        <span class="square-label">{{ square.getDisplay() }}</span>
     </div>
 </div>

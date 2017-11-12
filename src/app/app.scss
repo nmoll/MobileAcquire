@@ -142,6 +142,12 @@
     color: white;
 }
 
+.boardSquare.hotel-chain-5 {
+    border-bottom: 5px solid #1717ab !important;
+    border-right: 5px solid #1717ab !important;
+    box-shadow: -5px -5px blue !important;
+}
+
 .stock-color-5 {
   color: blue;
 }
@@ -151,6 +157,12 @@
     background: turquoise !important;
     border-color: turquoise !important;
     color: white;
+}
+
+.boardSquare.hotel-chain-6 {
+    border-bottom: 5px solid #2ba296 !important;
+    border-right: 5px solid #2ba296 !important;
+    box-shadow: -5px -5px turquoise !important;
 }
 
 .stock-color-6 {
@@ -164,6 +176,12 @@
     color: white;
 }
 
+.boardSquare.hotel-chain-4 {
+    border-bottom: 5px solid #c5909a !important;
+    border-right: 5px solid #c5909a !important;
+    box-shadow: -5px -5px pink !important;
+}
+
 .stock-color-4 {
     color: pink;
 }
@@ -173,6 +191,12 @@
     background: red !important;
     border-color: red !important;
     color: white;
+}
+
+.boardSquare.hotel-chain-2 {
+    border-bottom: 5px solid #bb1010 !important;
+    border-right: 5px solid #bb1010 !important;
+    box-shadow: -5px -5px red !important;
 }
 
 .stock-color-2 {
@@ -186,6 +210,12 @@
     color: white;
 }
 
+.boardSquare.hotel-chain-3 {
+    border-bottom: 5px solid #0d5f0d !important;
+    border-right: 5px solid #0d5f0d !important;
+    box-shadow: -5px -5px green !important;
+}
+
 .stock-color-3 {
     color: green;
 }
@@ -195,6 +225,12 @@
     background: #d6d622 !important;
     border-color: #d6d622 !important;
     color: white;
+}
+
+.boardSquare.hotel-chain-7 {
+    border-bottom: 5px solid #9c9c29 !important;
+    border-right: 5px solid #9c9c29 !important;
+    box-shadow: -5px -5px #d6d622 !important;
 }
 
 .stock-color-7 {
@@ -208,6 +244,12 @@
     color: white;
 }
 
+.boardSquare.hotel-chain-1 {
+    border-bottom: 5px solid #863d18 !important;
+    border-right: 5px solid #863d18 !important;
+    box-shadow: -5px -5px #a5532a!important;
+}
+
 .stock-color-1 {
     color: #a5532a;
 }
@@ -216,15 +258,20 @@
 .boardSquare {
     border: 1px solid gray;
     float: left;
+    -webkit-box-sizing: border-box;
     box-sizing: border-box;
     height: 11.16%;
-    text-align: center;
     width: 8.33%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #505050;
 }
 .boardSquare.hasTile {
     background-color: gray;
     border-bottom-color: #545454;
     border-right-color: #545454;
+    color: white;
 }
 .boardSquare.player-tile {
     box-shadow: 0 0 10px 0px #02bb00;
@@ -243,4 +290,8 @@
   bottom: 0;
   left: 0;
   right: 0;
+}
+
+.acquire-toast {
+    width: 75%;
 }

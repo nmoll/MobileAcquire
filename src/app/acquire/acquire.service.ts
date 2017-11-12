@@ -7,6 +7,7 @@ import { PlayerService } from '../player/player.service';
 import { MoveHandlerService } from '../move/move-handler.service';
 import { BoardSquareService } from '../board/board-square.service';
 import { StockShareService } from '../stock-share/stock-share.service';
+import { NotificationService } from '../notification/notification.service';
 
 @Injectable()
 export class AcquireService {
@@ -17,6 +18,7 @@ export class AcquireService {
         private playerService: PlayerService,
         private moveHandlerService: MoveHandlerService,
         private stockShareService: StockShareService,
+        private notificationService: NotificationService,
         private screenOrientation: ScreenOrientation,
         private platform: Platform
     ) {}
@@ -24,6 +26,7 @@ export class AcquireService {
     initGame(): void {
         this.lockLandscapeOrientation();
         this.playerService.initPlayerTiles();
+        this.notificationService.init();
         this.waitForNextMove();
     }
 
@@ -31,7 +34,6 @@ export class AcquireService {
         this.moveHandlerService.getMove().then((tile) => {
             var square = this.boardSquareService.findSquareById(tile.boardSquareId);
             var adjacentTiles = this.boardSquareService.getAdjacentTiles(square);
-            this.acquireEventService.notifyTilePlaced(tile);
             this.moveHandlerService.handleMove(tile, adjacentTiles).then(data => this.onMoveComplete());
         });
     }
