@@ -1,14 +1,17 @@
 <ion-row class="acquire-game">
+    <ion-col col-9 class="acquire-game-col">
+        <board></board>
+    </ion-col>
     <ion-col col-3 text-center class="acquire-game-col">
-        <button icon-left ion-button full large (tap)="showScoreboard()">
+        <button icon-left ion-button full outline large (tap)="showScoreboard()">
             <ion-icon name="clipboard"></ion-icon> {{ "ACTIONS.SCOREBOARD" | translate }}
         </button>
         <button ion-button round outline large [disabled]="!canPlaceTile()" (click)="placeTile()">{{ "ACTIONS.PLACE_TILE" | translate }}</button>
         <button ion-button round outline large [disabled]="!canBuyStocks()" (click)="buyStocks()">{{ "ACTIONS.BUY_STOCKS" | translate }}</button>
         <button ion-button round outline large [disabled]="!isTilePlaced()" (click)="endTurn()">{{ "ACTIONS.END_TURN" | translate }}</button>
-        <button ion-button round large *ngIf="canEndGame()" (click)="endGame()">{{ "ACTIONS.END_GAME" | translate }}</button>
-    </ion-col>
-    <ion-col col-9 class="acquire-game-col">
-        <board></board>
+        <button ion-button round outline large [disabled]="!canEndGame()" (click)="endGame()">{{ "ACTIONS.END_GAME" | translate }}</button>
+        <button icon-left ion-button full outline (click)="exitGame()">
+            <ion-icon name="exit"></ion-icon> {{ "ACTIONS.EXIT_GAME" | translate }}
+        </button>
     </ion-col>
 </ion-row>

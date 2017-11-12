@@ -27,7 +27,7 @@ export class ComputerMoveHandler extends MoveHandler {
         });
 
         setTimeout(t => {
-            for (let tile of this.playerService.currentPlayer.tiles) {
+            for (let tile of this.playerService.getCurrentPlayer().tiles) {
                 var square = this.boardSquareService.findSquareById(tile.boardSquareId);
                 var adjacentTiles = this.boardSquareService.getAdjacentTiles(square);
                 if (super.isTilePlayable(adjacentTiles)) {

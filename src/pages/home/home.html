@@ -1,14 +1,28 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>
-      Acquire
-    </ion-title>
-  </ion-navbar>
+    <ion-navbar>
+        <ion-title>
+            {{ "APP_NAME" | translate }}
+        </ion-title>
+    </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <button icon-left ion-button block (tap)="newGame()">
-      <ion-icon name="add-circle"></ion-icon>
-      New Game
-  </button>
+
+    <ion-card *ngFor="let game of games" (tap)="openGame(game)">
+        <ion-list>
+            <button ion-item>
+                <span *ngFor="let player of game.players">
+                    <ion-icon name="person" *ngIf="player.playerType === 1"></ion-icon>
+                    <ion-icon name="desktop" *ngIf="player.playerType === 2"></ion-icon>
+                    {{ player.name }}
+                    &nbsp;
+                </span>
+            </button>
+        </ion-list>
+    </ion-card>
+
+    <button icon-left ion-button block (tap)="newGame()">
+        <ion-icon name="add-circle"></ion-icon>
+        {{ "GAME.NEW_GAME" | translate }}
+    </button>
 </ion-content>

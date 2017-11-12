@@ -1,23 +1,21 @@
 import { Injectable } from '@angular/core';
 
+import { GameService } from '../game/game.service';
+
 import { HotelChain, HotelChainType } from './hotel-chain';
 import { Tile } from '../tile/tile';
 
 @Injectable()
 export class HotelChainService {
 
-    constructor() {
-        this.init();
-    }
-
-    hotelChains: HotelChain[];
-
-    getHotelChain(type: number): HotelChain {
-        return this.hotelChains.find(hotelChain => hotelChain.type === type);
-    }
+    constructor(private gameService: GameService) {}
 
     getHotelChains(): HotelChain[] {
-        return this.hotelChains;
+        return this.gameService.currentGame.hotelChains;
+    }
+
+    getHotelChain(type: number): HotelChain {
+        return this.getHotelChains().find(hotelChain => hotelChain.type === type);
     }
 
     getActiveHotelChains(): HotelChain[] {
@@ -25,7 +23,7 @@ export class HotelChainService {
     }
 
     isAllHotelChainsActive(): boolean {
-        return this.getActiveHotelChains().length == this.hotelChains.length;
+        return this.getActiveHotelChains().length == this.getHotelChains().length;
     }
 
     isAllHotelChainsSafe(): boolean {
@@ -68,15 +66,16 @@ export class HotelChainService {
         return Array.from(uniqueSet);
     }
 
-    init(): void {
-        this.hotelChains = [];
-        this.hotelChains.push(new HotelChain('Worldwide', 'WOR', HotelChainType.WORLDWIDE));
-        this.hotelChains.push(new HotelChain('Luxor', 'LUX', HotelChainType.LUXOR));
-        this.hotelChains.push(new HotelChain('Festival', 'FES', HotelChainType.FESTIVAL));
-        this.hotelChains.push(new HotelChain('Imperial', 'IMP', HotelChainType.IMPERIAL));
-        this.hotelChains.push(new HotelChain('American', 'AME', HotelChainType.AMERICAN));
-        this.hotelChains.push(new HotelChain('Continental', 'CON', HotelChainType.CONTINENTAL));
-        this.hotelChains.push(new HotelChain('Tower', 'TOW', HotelChainType.TOWER));
+    init(): HotelChain[] {
+        var hotelChains = [];
+        hotelChains.push(new HotelChain('Worldwide', 'WOR', HotelChainType.WORLDWIDE));
+        hotelChains.push(new HotelChain('Luxor', 'LUX', HotelChainType.LUXOR));
+        hotelChains.push(new HotelChain('Festival', 'FES', HotelChainType.FESTIVAL));
+        hotelChains.push(new HotelChain('Imperial', 'IMP', HotelChainType.IMPERIAL));
+        hotelChains.push(new HotelChain('American', 'AME', HotelChainType.AMERICAN));
+        hotelChains.push(new HotelChain('Continental', 'CON', HotelChainType.CONTINENTAL));
+        hotelChains.push(new HotelChain('Tower', 'TOW', HotelChainType.TOWER));
+        return hotelChains;
     }
 
 }

@@ -14,7 +14,7 @@ export class StockShareService {
 
     getAvailableStockShares(hotelChain: HotelChain): number {
         var result = 0;
-        for (let player of this.playerService.players) {
+        for (let player of this.playerService.getPlayers()) {
             var stockShare = player.getStockShareForHotelChain(hotelChain);
             result += stockShare.quantity;
         }
@@ -23,7 +23,7 @@ export class StockShareService {
 
     getTotalPrice(): number {
         var result = 0;
-        var stockShareOrder = this.playerService.currentPlayer.stockShareOrder;
+        var stockShareOrder = this.playerService.getCurrentPlayer().stockShareOrder;
         for (let stockShare of stockShareOrder.stockShares) {
             var stockPrice = stockShare.hotelChain.getStockPrice();
             result += (stockShare.quantity * stockPrice);
@@ -32,7 +32,7 @@ export class StockShareService {
     }
 
     resolvePlayerShares(): void {
-        var player = this.playerService.currentPlayer;
+        var player = this.playerService.getCurrentPlayer();
 
         if (player.stockShareOrder) {
             player.cash -= this.getTotalPrice();

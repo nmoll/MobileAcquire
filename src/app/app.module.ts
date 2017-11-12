@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -18,6 +17,7 @@ import { GameCreateComponent } from './game/game-create.component';
 
 import { AcquireService } from './acquire/acquire.service';
 import { BoardSquareService } from './board/board-square.service';
+import { GameService } from './game/game.service';
 import { HotelChainService } from './hotel-chain/hotel-chain.service';
 import { PlayerService } from './player/player.service';
 import { AcquireEventService } from './acquire/acquire-event.service';
@@ -77,6 +77,7 @@ import { HttpLoaderFactory } from './utils/factory/http-loader-factory';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AcquireService,
     BoardSquareService,
+    GameService,
     HotelChainService,
     PlayerService,
     AcquireEventService,

@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
+
 import { ModalController } from 'ionic-angular';
 import { MoveHandler } from './move-handler';
 import { HotelChain } from '../hotel-chain/hotel-chain';
@@ -15,6 +17,8 @@ import { HotelChainMergeStocksModalComponent } from '../hotel-chain/hotel-chain-
 @Injectable()
 export class FirstPersonMoveHandler extends MoveHandler {
 
+    private tilePlacedEventSubscription: Subscription;
+
     constructor(
         hotelChainService: HotelChainService,
         private acquireEventService: AcquireEventService,
@@ -22,6 +26,7 @@ export class FirstPersonMoveHandler extends MoveHandler {
         private modalCtrl: ModalController
     ) {
         super(hotelChainService);
+        acquireEventService.gameExitedEvent.subscribe(() => this.onGameExited());
     }
 
     getMove(): Promise<Tile> {
@@ -30,10 +35,10 @@ export class FirstPersonMoveHandler extends MoveHandler {
             resolver = resolve;
         });
 
-        var subscription = this.acquireEventService.tilePlacedEvent.subscribe(() => {
-            subscription.unsubscribe();
-            this.playerService.currentPlayer.hasPlacedTile = true;
-            resolver(this.playerService.currentPlayer.selectedTile);
+        this.tilePlacedEventSubscription = this.acquireEventService.tilePlacedEvent.subscribe(() => {
+            this.tilePlacedEventSubscription.unsubscribe();
+            this.playerService.getCurrentPlayer().hasPlacedTile = true;
+            resolver(this.playerService.getCurrentPlayer().selectedTile);
         });
 
         return promise;
@@ -130,6 +135,12 @@ export class FirstPersonMoveHandler extends MoveHandler {
         });
 
         return promise;
+    }
+
+    onGameExited(): void {
+        if (this.tilePlacedEventSubscription) {
+            this.tilePlacedEventSubscription.unsubscribe();
+        }
     }
 
 }

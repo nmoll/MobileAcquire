@@ -28,7 +28,7 @@ export class HotelChainStocksModalComponent implements OnInit {
     }
 
     getAvailableCash(): number {
-        return this.playerService.currentPlayer.cash - this.stockShareService.getTotalPrice();
+        return this.playerService.getCurrentPlayer().cash - this.stockShareService.getTotalPrice();
     }
 
     canPurchaseStockShare(stockShare: StockShare): boolean {
@@ -56,13 +56,13 @@ export class HotelChainStocksModalComponent implements OnInit {
     }
 
     getStockShareOrder(): StockShareOrder {
-        return this.playerService.currentPlayer.stockShareOrder;
+        return this.playerService.getCurrentPlayer().stockShareOrder;
     }
 
     initStocks(): void {
         if (!this.getStockShareOrder()) {
             var hotelChains = this.hotelChainService.getHotelChains().filter(hotelChain => hotelChain.tiles.length);
-            this.playerService.currentPlayer.stockShareOrder = new StockShareOrder(hotelChains);
+            this.playerService.getCurrentPlayer().stockShareOrder = new StockShareOrder(hotelChains);
         }
     }
 

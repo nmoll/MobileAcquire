@@ -2,11 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { TranslateService } from '@ngx-translate/core';
 
+import { Game } from './game';
 import { Player, PlayerType } from '../player/player';
 
 import { AcquireComponent } from '../acquire/acquire.component';
 
+import { BoardSquareService } from '../board/board-square.service';
+import { GameService } from './game.service';
 import { PlayerService } from '../player/player.service';
+import { TileBagService } from '../tile/tile-bag.service';
+import { HotelChainService } from '../hotel-chain/hotel-chain.service';
 
 @Component({
     selector: 'game-create',
@@ -18,9 +23,13 @@ export class GameCreateComponent implements OnInit  {
     playerLabel: string;
 
     constructor(
+        private gameService: GameService,
+        private boardSquareService: BoardSquareService,
         private playerService: PlayerService,
         private navCtrl: NavController,
-        private translateService: TranslateService
+        private translateService: TranslateService,
+        private tileBagService: TileBagService,
+        private hotelChainService: HotelChainService
     ) {}
 
     addPlayer(playerType: number): void {
@@ -35,8 +44,15 @@ export class GameCreateComponent implements OnInit  {
     }
 
     startGame(): void {
-        this.playerService.players = this.players;
-        this.playerService.currentPlayer = this.players[0];
+
+        let squares = this.boardSquareService.init();
+        let tiles = this.tileBagService.initTiles();
+        let hotelChains = this.hotelChainService.init();
+        let currentPlayer = this.players[0];
+        let game = new Game(this.players, currentPlayer, squares, tiles, hotelChains);
+
+
+        this.gameService.addGame(game);
         this.navCtrl.push(AcquireComponent);
     }
 

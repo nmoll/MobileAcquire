@@ -26,7 +26,7 @@ export class BoardComponent implements OnInit {
     getBoardSquareClass(square: BoardSquare): string {
         var result = '';
 
-        var player = this.playerService.currentPlayer;
+        var player = this.playerService.getCurrentPlayer();
 
         if (square.tile) {
             result += 'hasTile ';
@@ -54,7 +54,7 @@ export class BoardComponent implements OnInit {
     }
 
     onSquareSelected(square: BoardSquare): void {
-        var player = this.playerService.currentPlayer;
+        var player = this.playerService.getCurrentPlayer();
         if (player.hasPlacedTile || !player.hasTileForBoardSquareId(square.id)) {
             return;
         }

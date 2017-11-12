@@ -31,7 +31,7 @@ export class MoveHandlerService {
         return this.handleTilePlacement(tile, adjacentTiles)
             .then(() => {
                 // First person will buy stocks in their own time
-                if (this.playerService.currentPlayer.playerType == PlayerType.FIRST_PERSON) {
+                if (this.playerService.getCurrentPlayer().playerType == PlayerType.FIRST_PERSON) {
                     return new Promise(function (resolve) {
                         resolve();
                     });
@@ -115,7 +115,7 @@ export class MoveHandlerService {
     rewardPlayerWithFreeStockShare(hotelChain: HotelChain): void {
         var stockShare = new StockShare(hotelChain);
         stockShare.quantity = 1;
-        this.playerService.currentPlayer.addStockShare(stockShare);
+        this.playerService.getCurrentPlayer().addStockShare(stockShare);
     }
 
     expandHotelChain(tile: Tile, adjacentTiles: Tile[]): Promise<Object> {
@@ -144,7 +144,7 @@ export class MoveHandlerService {
                 return mergeResult;
             })
             .then((mergeResult) => {
-                var player = this.playerService.currentPlayer;
+                var player = this.playerService.getCurrentPlayer();
                 return this.resolveMergeStocks(player, player, mergeResult);
             })
             .then((mergeResult) => {
@@ -239,7 +239,7 @@ export class MoveHandlerService {
     }
 
     getMoveHandler(): MoveHandler {
-        return this.getMoveHandlerForPlayer(this.playerService.currentPlayer);
+        return this.getMoveHandlerForPlayer(this.playerService.getCurrentPlayer());
     }
 
     getMoveHandlerForPlayer(player: Player): MoveHandler {

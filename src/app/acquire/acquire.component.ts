@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ModalController } from 'ionic-angular';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ModalController, NavController } from 'ionic-angular';
 import { AcquireService } from './acquire.service';
 import { AcquireEventService } from './acquire-event.service';
 import { ScoreboardComponent } from '../scoreboard/scoreboard.component';
@@ -11,7 +11,7 @@ import { HotelChainService } from '../hotel-chain/hotel-chain.service'
     selector: 'acquire',
     templateUrl: 'acquire.component.html'
 })
-export class AcquireComponent implements OnInit {
+export class AcquireComponent implements OnInit, OnDestroy {
 
     constructor(
         private acquireService: AcquireService,
@@ -19,11 +19,17 @@ export class AcquireComponent implements OnInit {
         private modalCtrl: ModalController,
         private playerService: PlayerService,
         private moveHandlerService: MoveHandlerService,
-        private hotelChainService: HotelChainService
+        private hotelChainService: HotelChainService,
+        private navCtrl: NavController
     ) {}
 
     ngOnInit(): void {
         this.acquireService.initGame();
+        this.acquireEventService.notifyGameEntered();
+    }
+
+    ngOnDestroy(): void {
+        this.acquireEventService.notifyGameExited();
     }
 
     showScoreboard(): void {
@@ -36,11 +42,11 @@ export class AcquireComponent implements OnInit {
     }
 
     isTileSelected(): boolean {
-        return !!this.playerService.currentPlayer.selectedTile;
+        return !!this.playerService.getCurrentPlayer().selectedTile;
     }
 
     isTilePlaced(): boolean {
-        return this.playerService.currentPlayer.hasPlacedTile;
+        return this.playerService.getCurrentPlayer().hasPlacedTile;
     }
 
     canBuyStocks(): boolean {
@@ -51,7 +57,7 @@ export class AcquireComponent implements OnInit {
         if (!this.canPlaceTile()) {
             return;
         }
-        this.acquireEventService.notifyTilePlaced(this.playerService.currentPlayer.selectedTile);
+        this.acquireEventService.notifyTilePlaced(this.playerService.getCurrentPlayer().selectedTile);
     }
 
     buyStocks(): void {
@@ -68,6 +74,10 @@ export class AcquireComponent implements OnInit {
 
     endGame(): void {
 
+    }
+
+    exitGame(): void {
+        this.navCtrl.popToRoot();
     }
 
 }

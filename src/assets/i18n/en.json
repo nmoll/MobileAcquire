@@ -1,10 +1,12 @@
 {
+    "APP_NAME": "Acquire",
     "ACTIONS": {
         "SCOREBOARD": "Scoreboard",
         "PLACE_TILE": "Place Tile",
         "BUY_STOCKS": "Buy Stocks",
         "END_TURN": "End Turn",
-        "END_GAME": "End Game"
+        "END_GAME": "End Game",
+        "EXIT_GAME": "Exit Game"
     },
     "GAME": {
         "NEW_GAME": "New Game",

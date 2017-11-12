@@ -25,7 +25,7 @@ export class ScoreboardComponent implements OnInit {
     collapsed: boolean = true;
 
     isCurrentPlayer(player: Player): boolean {
-        return player === this.playerService.currentPlayer;
+        return player === this.playerService.getCurrentPlayer();
     }
 
     ngOnInit(): void {
