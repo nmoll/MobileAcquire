@@ -7,7 +7,16 @@
             <ion-icon name="clipboard"></ion-icon> {{ "ACTIONS.SCOREBOARD" | translate }}
         </button>
         <button ion-button round outline large [disabled]="!canPlaceTile()" (click)="placeTile()">{{ "ACTIONS.PLACE_TILE" | translate }}</button>
-        <button ion-button round outline large [disabled]="!canBuyStocks()" (click)="buyStocks()">{{ "ACTIONS.BUY_STOCKS" | translate }}</button>
+        <button ion-button round outline large [disabled]="!canBuyStocks()" (click)="buyStocks()">
+            <span class="btn-progress">
+                <ng-template ngFor let-stock [ngForOf]="getStockSharesForPurchase()">
+                    <ng-template ngFor let-i [ngForOf]="stock.quantity | times">
+                        <span class="btn-progress-part stock-background-{{ stock.hotelChain.type }}"></span>
+                    </ng-template>
+                </ng-template>
+            </span>
+            <span class="bring-forward">{{ "ACTIONS.BUY_STOCKS" | translate }}</span>
+        </button>
         <button ion-button round outline large [disabled]="!isTilePlaced()" (click)="endTurn()">{{ "ACTIONS.END_TURN" | translate }}</button>
         <button ion-button round outline large [disabled]="!canEndGame()" (click)="endGame()">{{ "ACTIONS.END_GAME" | translate }}</button>
         <button icon-left ion-button full outline (click)="exitGame()">

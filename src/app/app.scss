@@ -149,7 +149,11 @@
 }
 
 .stock-color-5 {
-  color: blue;
+    color: blue;
+}
+
+.stock-background-5 {
+    background-color: blue;
 }
 
 /* CONTINENTAL */
@@ -169,6 +173,10 @@
     color: turquoise;
 }
 
+.stock-background-6 {
+    background-color: turquoise;
+}
+
 /* IMPERIAL */
 .hotel-chain-4 {
     background: pink !important;
@@ -184,6 +192,10 @@
 
 .stock-color-4 {
     color: pink;
+}
+
+.stock-background-4 {
+    background-color: pink;
 }
 
 /* LUXOR */
@@ -203,6 +215,10 @@
     color: red;
 }
 
+.stock-background-2 {
+    background-color: red;
+}
+
 /* FESTIVAL */
 .hotel-chain-3 {
     background: green !important;
@@ -218,6 +234,10 @@
 
 .stock-color-3 {
     color: green;
+}
+
+.stock-background-3 {
+    background-color: green;
 }
 
 /* TOWER */
@@ -237,6 +257,10 @@
     color: #d6d622;
 }
 
+.stock-background-7 {
+    background-color: #d6d622;
+}
+
 /* WORLDWIDE */
 .hotel-chain-1 {
     background: #a5532a !important;
@@ -252,6 +276,30 @@
 
 .stock-color-1 {
     color: #a5532a;
+}
+
+.stock-background-1 {
+    background-color: #a5532a;
+}
+
+.btn-progress {
+    position: absolute;
+    width: 100px;
+    height: 9px;
+    bottom: 6px;
+}
+
+.btn-progress-part {
+    width: 31%;
+    height: 100%;
+    display: block;
+    z-index: -1;
+    float: left;
+    margin-left: 2%;
+}
+
+.bring-forward {
+    z-index: 1;
 }
 
 //Board
