@@ -10,6 +10,7 @@ export class Game {
     tiles: Tile[];
     squares: BoardSquare[];
     hotelChains: HotelChain[];
+    winners: Player[] = [];
 
     constructor(
         players: Player[],
@@ -33,6 +34,14 @@ export class Game {
         var isLastInList = (player === this.players[this.players.length - 1]);
         var index = isLastInList ? 0 : this.players.indexOf(player) + 1;
         return this.players[index];
+    }
+
+    isEnded(): boolean {
+        return this.winners.length > 0;
+    }
+
+    endGame(winners: Player[]): void {
+        this.winners = winners;
     }
 
 }

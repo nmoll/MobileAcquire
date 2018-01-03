@@ -83,6 +83,26 @@ export class MoveHandlerService {
         return this.getMoveHandler().canEndGame();
     }
 
+    resolveWinner(): Player[] {
+        let players = this.playerService.getPlayers();
+        let winners = [];
+
+        let maxCash = 0;
+        for (let player of players) {
+            if (player.cash > maxCash) {
+                maxCash = player.cash;
+            }
+        }
+
+        for (let player of players) {
+            if (maxCash === player.cash) {
+                winners.push(player);
+            }
+        }
+
+        return winners;
+    }
+
     private isNewChain(adjacentTiles: Tile[]): boolean {
         return adjacentTiles.length > 0 &&
             this.hotelChainService.findAllByTiles(adjacentTiles).length === 0;

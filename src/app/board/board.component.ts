@@ -5,6 +5,7 @@ import { BoardSquare } from './board-square';
 import { BoardSquareService } from './board-square.service';
 import { PlayerService } from '../player/player.service';
 import { MoveHandlerService } from '../move/move-handler.service';
+import { GameService } from '../game/game.service';
 
 import { PlayerType } from '../player/player';
 
@@ -18,7 +19,8 @@ export class BoardComponent implements OnInit {
         private acquireEventService: AcquireEventService,
         private boardSquareService: BoardSquareService,
         private playerService: PlayerService,
-        private moveHandlerService: MoveHandlerService
+        private moveHandlerService: MoveHandlerService,
+        private gameService: GameService
     ) {}
 
     squares: BoardSquare[];
@@ -54,6 +56,11 @@ export class BoardComponent implements OnInit {
     }
 
     onSquareSelected(square: BoardSquare): void {
+
+        if (this.gameService.isCurrentGameEnded()) {
+            return;
+        }
+
         var player = this.playerService.getCurrentPlayer();
         if (player.hasPlacedTile || !player.hasTileForBoardSquareId(square.id)) {
             return;

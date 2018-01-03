@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Platform } from 'ionic-angular';
 
 import { PlayerService } from '../player/player.service';
 import { MoveHandlerService } from '../move/move-handler.service';

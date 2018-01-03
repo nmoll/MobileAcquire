@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { ToastController } from 'ionic-angular';
-import { Subscription } from 'rxjs/Subscription';
 import { AcquireEventService } from '../acquire/acquire-event.service';
 import { PlayerService } from '../player/player.service';
 

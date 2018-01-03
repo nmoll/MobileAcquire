@@ -1,12 +1,14 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ModalController, NavController, Platform } from 'ionic-angular';
+import { AlertController, ModalController, NavController, Platform } from 'ionic-angular';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
+import { TranslateService } from '@ngx-translate/core';
 import { AcquireService } from './acquire.service';
 import { AcquireEventService } from './acquire-event.service';
 import { ScoreboardComponent } from '../scoreboard/scoreboard.component';
 import { PlayerService } from '../player/player.service';
 import { MoveHandlerService } from '../move/move-handler.service';
 import { HotelChainService } from '../hotel-chain/hotel-chain.service'
+import { GameService } from '../game/game.service';
 
 import { StockShare } from '../stock-share/stock-share';
 
@@ -17,6 +19,7 @@ import { StockShare } from '../stock-share/stock-share';
 export class AcquireComponent implements OnInit, OnDestroy {
 
     constructor(
+        private alertCtrl: AlertController,
         private acquireService: AcquireService,
         private acquireEventService: AcquireEventService,
         private screenOrientation: ScreenOrientation,
@@ -24,8 +27,10 @@ export class AcquireComponent implements OnInit, OnDestroy {
         private playerService: PlayerService,
         private moveHandlerService: MoveHandlerService,
         private hotelChainService: HotelChainService,
+        private gameService: GameService,
         private navCtrl: NavController,
-        private platform: Platform
+        private platform: Platform,
+        private translateService: TranslateService
     ) {}
 
     ngOnInit(): void {
@@ -45,7 +50,7 @@ export class AcquireComponent implements OnInit, OnDestroy {
     }
 
     canPlaceTile(): boolean {
-        return this.isTileSelected() && !this.isTilePlaced();
+        return !this.isGameEnded() && this.isTileSelected() && !this.isTilePlaced();
     }
 
     isTileSelected(): boolean {
@@ -57,7 +62,7 @@ export class AcquireComponent implements OnInit, OnDestroy {
     }
 
     canBuyStocks(): boolean {
-        return this.isTilePlaced() && this.hotelChainService.getActiveHotelChains().length > 0;
+        return !this.isGameEnded() && this.isTilePlaced() && this.hotelChainService.getActiveHotelChains().length > 0;
     }
 
     placeTile(): void {
@@ -84,11 +89,42 @@ export class AcquireComponent implements OnInit, OnDestroy {
     }
 
     canEndGame(): boolean {
-        return this.moveHandlerService.canEndGame();
+        return !this.isGameEnded() && this.moveHandlerService.canEndGame();
     }
 
     endGame(): void {
+        let winners = this.moveHandlerService.resolveWinner();
 
+        let player = this.playerService.getCurrentPlayer().name;
+
+        let winnerName;
+        if (winners.length === 1) {
+            winnerName = winners[0].name;
+        } else {
+            winnerName = winners.map(player => player.name).join(' & ');
+        }
+
+        this.translateService.get([
+            'MESSAGE.GAME_ENDED_TITLE',
+            'MESSAGE.GAME_ENDED_WINNER_MESSAGE',
+            'MESSAGE.GAME_ENDED_TIED_MESSAGE'
+        ], {
+            player: player,
+            winner: winnerName
+        }).subscribe((messages: string) => {
+            let subTitle = winners.length === 1 ? messages['MESSAGE.GAME_ENDED_WINNER_MESSAGE'] : messages['MESSAGE.GAME_ENDED_TIED_MESSAGE'];
+            let alert = this.alertCtrl.create({
+                title: messages['MESSAGE.GAME_ENDED_TITLE'],
+                subTitle: subTitle
+            });
+            alert.present();
+        });
+
+        this.gameService.endCurrentGame(winners);
+    }
+
+    isGameEnded(): boolean {
+        return this.gameService.isCurrentGameEnded();
     }
 
     exitGame(): void {

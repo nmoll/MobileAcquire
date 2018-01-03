@@ -19,5 +19,10 @@
         "TYPE": "Type",
         "TYPE_HUMAN": "Human",
         "TYPE_COMPUTER": "Computer"
+    },
+    "MESSAGE": {
+        "GAME_ENDED_TITLE": "{{ player }} ended the game",
+        "GAME_ENDED_WINNER_MESSAGE": "{{ winner }} wins!",
+        "GAME_ENDED_TIED_MESSAGE": "{{ winner }} tied for first place!"
     }
 }
