@@ -18,6 +18,11 @@ import { StockShare } from '../stock-share/stock-share';
 })
 export class AcquireComponent implements OnInit, OnDestroy {
 
+    private endGamePromptTitle;
+    private endGamePromptMessage;
+    private yesLabel;
+    private cancelLabel;
+
     constructor(
         private alertCtrl: AlertController,
         private acquireService: AcquireService,
@@ -37,6 +42,17 @@ export class AcquireComponent implements OnInit, OnDestroy {
         this.lockLandscapeOrientation();
         this.acquireService.initGame();
         this.acquireEventService.notifyGameEntered();
+        this.translateService.get([
+            'MESSAGE.END_GAME_PROMPT_TITLE',
+            'MESSAGE.END_GAME_PROMPT_MESSAGE',
+            'ACTIONS.YES',
+            'ACTIONS.CANCEL'
+        ]).subscribe((result) => {
+            this.endGamePromptTitle = result['MESSAGE.END_GAME_PROMPT_TITLE'];
+            this.endGamePromptMessage = result['MESSAGE.END_GAME_PROMPT_MESSAGE'];
+            this.yesLabel = result['ACTIONS.YES'];
+            this.cancelLabel = result['ACTIONS.CANCEL'];
+        });
     }
 
     ngOnDestroy(): void {
@@ -93,34 +109,22 @@ export class AcquireComponent implements OnInit, OnDestroy {
     }
 
     endGame(): void {
-        let winners = this.moveHandlerService.resolveWinner();
-
-        let player = this.playerService.getCurrentPlayer().name;
-
-        let winnerName;
-        if (winners.length === 1) {
-            winnerName = winners[0].name;
-        } else {
-            winnerName = winners.map(player => player.name).join(' & ');
-        }
-
-        this.translateService.get([
-            'MESSAGE.GAME_ENDED_TITLE',
-            'MESSAGE.GAME_ENDED_WINNER_MESSAGE',
-            'MESSAGE.GAME_ENDED_TIED_MESSAGE'
-        ], {
-            player: player,
-            winner: winnerName
-        }).subscribe((messages: string) => {
-            let subTitle = winners.length === 1 ? messages['MESSAGE.GAME_ENDED_WINNER_MESSAGE'] : messages['MESSAGE.GAME_ENDED_TIED_MESSAGE'];
-            let alert = this.alertCtrl.create({
-                title: messages['MESSAGE.GAME_ENDED_TITLE'],
-                subTitle: subTitle
-            });
-            alert.present();
+        let confirm = this.alertCtrl.create({
+            title: this.endGamePromptTitle,
+            message: this.endGamePromptMessage,
+            buttons: [
+                {
+                    text: this.yesLabel,
+                    handler: () => {
+                        this.moveHandlerService.endGame();
+                    }
+                },
+                {
+                    text: this.cancelLabel
+                }
+            ]
         });
-
-        this.gameService.endCurrentGame(winners);
+        confirm.present();
     }
 
     isGameEnded(): boolean {

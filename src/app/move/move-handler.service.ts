@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 
+import { AlertController } from 'ionic-angular';
+import { TranslateService } from '@ngx-translate/core';
+
 import { Tile } from '../tile/tile';
 import { HotelChain } from '../hotel-chain/hotel-chain';
 import { HotelChainMergeResult } from '../hotel-chain/hotel-chain-merge-result';
@@ -12,6 +15,7 @@ import { PlayerService } from '../player/player.service';
 import { MoveHandler } from './move-handler';
 import { FirstPersonMoveHandler } from './first-person-move-handler';
 import { ComputerMoveHandler } from './computer-move-handler';
+import { GameService } from '../game/game.service';
 
 @Injectable()
 export class MoveHandlerService {
@@ -20,7 +24,10 @@ export class MoveHandlerService {
         private hotelChainService: HotelChainService,
         private playerService: PlayerService,
         private firstPersonMoveHandler: FirstPersonMoveHandler,
-        private computerMoveHandler: ComputerMoveHandler
+        private computerMoveHandler: ComputerMoveHandler,
+        private gameService: GameService,
+        private translateService: TranslateService,
+        private alertCtrl: AlertController
     ) {}
 
     getMove(): Promise<Tile> {
@@ -83,24 +90,37 @@ export class MoveHandlerService {
         return this.getMoveHandler().canEndGame();
     }
 
-    resolveWinner(): Player[] {
-        let players = this.playerService.getPlayers();
-        let winners = [];
-
-        let maxCash = 0;
-        for (let player of players) {
-            if (player.cash > maxCash) {
-                maxCash = player.cash;
-            }
+    endGame(): void {
+        let activeHotelChains: HotelChain[] = this.hotelChainService.getActiveHotelChains();
+        for (let hotelChain of activeHotelChains) {
+            this.rewardMajorityAndMinorityStockholders(hotelChain);
         }
-
-        for (let player of players) {
-            if (maxCash === player.cash) {
-                winners.push(player);
-            }
+        for (let player of this.playerService.getPlayers()) {
+            this.playerService.cashInStocks(player);
         }
+        let winners = this.playerService.getPlayersInLead();
+        this.showGameEndedMessage(winners);
+        this.gameService.endCurrentGame(winners);
+    }
 
-        return winners;
+    private showGameEndedMessage(winners: Player[]): void {
+        let winnerName = winners.length === 1 ? winners[0].name : winners.map(player => player.name).join(' & ');
+
+        this.translateService.get([
+            'MESSAGE.GAME_ENDED_TITLE',
+            'MESSAGE.GAME_ENDED_WINNER_MESSAGE',
+            'MESSAGE.GAME_ENDED_TIED_MESSAGE'
+        ], {
+            player: this.playerService.getCurrentPlayer().name,
+            winner: winnerName
+        }).subscribe((messages: string) => {
+            let subTitle = winners.length === 1 ? messages['MESSAGE.GAME_ENDED_WINNER_MESSAGE'] : messages['MESSAGE.GAME_ENDED_TIED_MESSAGE'];
+            let alert = this.alertCtrl.create({
+                title: messages['MESSAGE.GAME_ENDED_TITLE'],
+                subTitle: subTitle
+            });
+            alert.present();
+        });
     }
 
     private isNewChain(adjacentTiles: Tile[]): boolean {

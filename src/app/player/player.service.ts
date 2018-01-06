@@ -94,6 +94,32 @@ export class PlayerService {
         });
     }
 
+    getPlayersInLead(): Player[] {
+        let players = this.getPlayers();
+        let winners = [];
+
+        let maxCash = 0;
+        for (let player of players) {
+            if (player.cash > maxCash) {
+                maxCash = player.cash;
+            }
+        }
+
+        for (let player of players) {
+            if (maxCash === player.cash) {
+                winners.push(player);
+            }
+        }
+
+        return winners;
+    }
+
+    cashInStocks(player: Player): void {
+        for (let stockShare of player.stockShares) {
+            player.cash += (stockShare.quantity * stockShare.hotelChain.getStockPrice());
+        }
+    }
+
     initPlayerTiles(): void {
         if (this.gameService.currentGame.currentPlayer.tiles.length) {
             return;

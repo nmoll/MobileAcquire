@@ -3,6 +3,8 @@
     "ACTIONS": {
         "BUY_STOCKS": "Buy Stocks",
         "SCOREBOARD": "Scoreboard",
+        "YES": "Yes",
+        "CANCEL": "Cancel",
         "DONE": "Done",
         "END_GAME": "End Game",
         "END_TURN": "End Turn",
@@ -26,7 +28,9 @@
         "GAME_ENDED_TIED_MESSAGE": "{{ winner }} tied for first place!",
         "GAME_ENDED_TITLE": "{{ player }} ended the game",
         "GAME_ENDED_WINNER_MESSAGE": "{{ winner }} wins!",
-        "TILE_PLACED": "{{ player }} played tile {{ tile }}."
+        "TILE_PLACED": "{{ player }} played tile {{ tile }}.",
+        "END_GAME_PROMPT_TITLE": "End Game",
+        "END_GAME_PROMPT_MESSAGE": "Are you sure you want to end the game?"
     },
     "PLAYER": {
         "AVAILABLE_CASH": "Available Cash",
