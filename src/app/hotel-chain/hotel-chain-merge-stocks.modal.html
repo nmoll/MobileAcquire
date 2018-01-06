@@ -1,42 +1,49 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>
-      Hotel Merge
-    </ion-title>
-    <ion-buttons end>
-      <button ion-button (tap)="onOk()" [disabled]="stockShares > 0" color="primary">Done</button>
-    </ion-buttons>
-  </ion-navbar>
+    <ion-navbar>
+        <ion-title>
+            {{ "HOTEL.MERGE" | translate }}
+        </ion-title>
+        <ion-buttons end>
+            <button ion-button (tap)="onOk()" [disabled]="stockShares > 0" color="primary">
+                {{ "ACTIONS.DONE" | translate }}
+            </button>
+        </ion-buttons>
+    </ion-navbar>
 </ion-header>
 
 <ion-content padding>
 
-  <div class="alert">
-      <strong>{{ mergeResult.source.name }}</strong> is merging into
-      <strong>{{ mergeResult.destination.name }}</strong>.
-      What would you like to do with your <strong>{{ mergeResult.source.name }}</strong> stocks?
-  </div>
+    <div class="alert"
+        [innerHTML]="'HOTEL.MERGE_MESSAGE' | translate : { source: mergeResult.source.name, destination: mergeResult.destination.name }">
+    </div>
 
-  <div style="margin-bottom: 10px; margin-top: 20px;">
-      Stocks: {{ stockShares }}
-  </div>
+    <div style="margin-bottom: 10px; margin-top: 20px;">
+        {{ "STOCK.STOCKS" | translate }}: {{ stockShares }}
+    </div>
 
-  <div>
-      <div class="tile-selection third" (tap)="hold()">
-          <span class="top-left">{{ stockSharesToHold }}</span>
-          <span class="bottom-left action action-danger" (tap)="removeHeld($event)">Remove</span>
-          Hold
-      </div>
-      <div class="tile-selection third" (tap)="trade()">
-          <span class="top-left">{{ stockSharesToTrade }}</span>
-          <span class="bottom-left action action-danger" (tap)="removeTrade($event)">Remove</span>
-          Trade
-      </div>
-      <div class="tile-selection third" (tap)="sell()">
-          <span class="top-left">{{ stockSharesToSell }}</span>
-          <span class="top-right" style="color: green;">${{ getTotalSellAmount() }}</span>
-          <span class="bottom-left action action-danger" (tap)="removeSold($event)">Remove</span>
-          Sell
-      </div>
-  </div>
+    <div>
+        <div class="tile-selection third" (tap)="hold()">
+            <span class="top-left">{{ stockSharesToHold }}</span>
+            <span class="bottom-left action action-danger" (tap)="removeHeld($event)">
+                {{ "STOCK.REMOVE" | translate }}
+            </span>
+            {{ "STOCK.HOLD" | translate }}
+        </div>
+        <div class="tile-selection third" (tap)="trade()">
+            <span class="top-left">{{ stockSharesToTrade }}</span>
+            <span class="bottom-left action action-danger" (tap)="removeTrade($event)">
+                {{ "STOCK.REMOVE" | translate }}
+            </span>
+            {{ "STOCK.TRADE" | translate }}
+        </div>
+        <div class="tile-selection third" (tap)="sell()">
+            <span class="top-left">{{ stockSharesToSell }}</span>
+            <span class="top-right" style="color: green;">${{ getTotalSellAmount() }}</span>
+            <span class="bottom-left action action-danger" (tap)="removeSold($event)">
+                {{ "STOCK.REMOVE" | translate }}
+            </span>
+            {{ "STOCK.SELL" | translate }}
+        </div>
+    </div>
+
 </ion-content>

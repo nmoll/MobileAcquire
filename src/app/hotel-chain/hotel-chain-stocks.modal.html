@@ -1,12 +1,12 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Purchase Stocks
+      {{ "STOCK.PURCHASE_STOCKS" | translate }}
     </ion-title>
 
     <ion-buttons end>
       <button ion-button (tap)="onOk()" color="primary">
-          Done
+          {{ "ACTIONS.DONE" | translate }}
       </button>
     </ion-buttons>
   </ion-navbar>
@@ -14,7 +14,7 @@
 
 <ion-content padding>
   <div style="margin-bottom: 20px;">
-      Available Cash: <span style="color: green">${{ getAvailableCash() }}</span>
+      {{ "PLAYER.AVAILABLE_CASH" | translate }}: <span style="color: green">${{ getAvailableCash() }}</span>
   </div>
 
   <div>
@@ -30,7 +30,7 @@
           </ng-template>
           <ng-template ngFor let-i [ngForOf]="(3 - getStockShareOrder().getTotalQuantity())|times">
               <ion-col col-4 class="stock-placeholder">
-                Available
+                {{ "STOCK.AVAILABLE" | translate }}
               </ion-col>
           </ng-template>
         </ion-row>

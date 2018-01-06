@@ -1,28 +1,50 @@
 {
     "APP_NAME": "Acquire",
     "ACTIONS": {
-        "SCOREBOARD": "Scoreboard",
-        "PLACE_TILE": "Place Tile",
         "BUY_STOCKS": "Buy Stocks",
-        "END_TURN": "End Turn",
+        "SCOREBOARD": "Scoreboard",
+        "DONE": "Done",
         "END_GAME": "End Game",
-        "EXIT_GAME": "Exit Game"
+        "END_TURN": "End Turn",
+        "EXIT_GAME": "Exit Game",
+        "MERGE": "Merge",
+        "PLACE_TILE": "Place Tile"
     },
     "GAME": {
+        "ADD_PLAYER": "Add Player",
         "NEW_GAME": "New Game",
-        "START": "Start",
         "PLAYER": "Player",
-        "ADD_PLAYER": "Add Player"
+        "START": "Start"
+    },
+    "HOTEL": {
+        "CHOOSE_MERGE_DIRECTION": "Choose Merge Direction",
+        "MERGE": "Hotel Merge",
+        "MERGE_MESSAGE": "<strong>{{ source }}</strong> is merging into <strong>{{ destination }}</strong>. What would you like to do with your <strong>{{ source }}</strong> stocks?",
+        "START_HOTEL_CHAIN": "Start Hotel Chain"
+    },
+    "MESSAGE": {
+        "GAME_ENDED_TIED_MESSAGE": "{{ winner }} tied for first place!",
+        "GAME_ENDED_TITLE": "{{ player }} ended the game",
+        "GAME_ENDED_WINNER_MESSAGE": "{{ winner }} wins!",
+        "TILE_PLACED": "{{ player }} played tile {{ tile }}."
     },
     "PLAYER": {
+        "AVAILABLE_CASH": "Available Cash",
         "NAME": "Name",
         "TYPE": "Type",
         "TYPE_HUMAN": "Human",
         "TYPE_COMPUTER": "Computer"
     },
-    "MESSAGE": {
-        "GAME_ENDED_TITLE": "{{ player }} ended the game",
-        "GAME_ENDED_WINNER_MESSAGE": "{{ winner }} wins!",
-        "GAME_ENDED_TIED_MESSAGE": "{{ winner }} tied for first place!"
+    "SCOREBOARD": {
+        "TITLE": "Scoreboard"
+    },
+    "STOCK": {
+        "AVAILABLE": "Available",
+        "HOLD": "Hold",
+        "PURCHASE_STOCKS": "Purchase Stocks",
+        "REMOVE": "Remove",
+        "SELL": "Sell",
+        "STOCKS": "Stocks",
+        "TRADE": "Trade"
     }
 }

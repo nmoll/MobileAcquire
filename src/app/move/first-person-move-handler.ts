@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 
 import { ModalController } from 'ionic-angular';
+import { TranslateService } from '@ngx-translate/core';
 import { MoveHandler } from './move-handler';
 import { HotelChain } from '../hotel-chain/hotel-chain';
 import { HotelChainMergeResult } from '../hotel-chain/hotel-chain-merge-result';
@@ -19,14 +20,32 @@ export class FirstPersonMoveHandler extends MoveHandler {
 
     private tilePlacedEventSubscription: Subscription;
 
+    private startHotelChainLabel;
+    private chooseMergeLabel;
+    private doneLabel;
+    private mergeLabel;
+
     constructor(
         hotelChainService: HotelChainService,
         private acquireEventService: AcquireEventService,
         private playerService: PlayerService,
-        private modalCtrl: ModalController
+        private modalCtrl: ModalController,
+        private translateService: TranslateService
     ) {
         super(hotelChainService);
         acquireEventService.gameExitedEvent.subscribe(() => this.onGameExited());
+
+        this.translateService.get([
+            'HOTEL.START_HOTEL_CHAIN',
+            'HOTEL.CHOOSE_MERGE_DIRECTION',
+            'ACTIONS.DONE',
+            'ACTIONS.MERGE'
+        ]).subscribe((translations) => {
+            this.startHotelChainLabel = translations['HOTEL.START_HOTEL_CHAIN'];
+            this.chooseMergeLabel = translations['HOTEL.CHOOSE_MERGE_DIRECTION'];
+            this.doneLabel = translations['ACTIONS.DONE'];
+            this.mergeLabel = translations['ACTIONS.MERGE'];
+        });
     }
 
     getMove(): Promise<Tile> {
@@ -52,8 +71,8 @@ export class FirstPersonMoveHandler extends MoveHandler {
 
         var modal = this.modalCtrl.create(HotelChainSelectModalComponent, {
             hotelChains: hotelChains,
-            title: 'Start Hotel Chain',
-            confirmButtonText: 'Done'
+            title: this.startHotelChainLabel,
+            confirmButtonText: this.doneLabel
         }, {
           enableBackdropDismiss: false
         });
@@ -73,8 +92,8 @@ export class FirstPersonMoveHandler extends MoveHandler {
 
         var modal = this.modalCtrl.create(HotelChainSelectModalComponent, {
             hotelChains: hotelChains,
-            title: 'Choose Merge Direction',
-            confirmButtonText: 'Merge'
+            title: this.chooseMergeLabel,
+            confirmButtonText: this.mergeLabel
         }, {
           enableBackdropDismiss: false
         });
