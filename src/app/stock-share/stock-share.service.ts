@@ -21,6 +21,10 @@ export class StockShareService {
         return StockShare.MAX_STOCK_SHARES - result;
     }
 
+    hasAvailableStockShare(hotelChain: HotelChain): boolean {
+        return this.getAvailableStockShares(hotelChain) > 0;
+    }
+
     getTotalPrice(): number {
         var result = 0;
         var stockShareOrder = this.playerService.getCurrentPlayer().stockShareOrder;

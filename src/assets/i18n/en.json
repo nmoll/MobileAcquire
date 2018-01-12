@@ -30,7 +30,9 @@
         "GAME_ENDED_WINNER_MESSAGE": "{{ winner }} wins!",
         "TILE_PLACED": "{{ player }} played tile {{ tile }}.",
         "END_GAME_PROMPT_TITLE": "End Game",
-        "END_GAME_PROMPT_MESSAGE": "Are you sure you want to end the game?"
+        "END_GAME_PROMPT_MESSAGE": "Are you sure you want to end the game?",
+        "END_TURN_WITHOUT_STOCKS_TITLE": "No Stocks Purchased",
+        "END_TURN_WITHOUT_STOCKS_MESSAGE": "You are about to end your turn without buying any stocks. Continue?"
     },
     "PLAYER": {
         "AVAILABLE_CASH": "Available Cash",

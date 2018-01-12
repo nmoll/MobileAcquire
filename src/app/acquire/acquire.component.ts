@@ -9,6 +9,7 @@ import { PlayerService } from '../player/player.service';
 import { MoveHandlerService } from '../move/move-handler.service';
 import { HotelChainService } from '../hotel-chain/hotel-chain.service'
 import { GameService } from '../game/game.service';
+import { StockShareService } from '../stock-share/stock-share.service';
 
 import { StockShare } from '../stock-share/stock-share';
 
@@ -20,6 +21,8 @@ export class AcquireComponent implements OnInit, OnDestroy {
 
     private endGamePromptTitle;
     private endGamePromptMessage;
+    private endTurnWithoutStocksTitle;
+    private endTurnWithoutStocksMessage;
     private yesLabel;
     private cancelLabel;
 
@@ -33,6 +36,7 @@ export class AcquireComponent implements OnInit, OnDestroy {
         private moveHandlerService: MoveHandlerService,
         private hotelChainService: HotelChainService,
         private gameService: GameService,
+        private stockShareService: StockShareService,
         private navCtrl: NavController,
         private platform: Platform,
         private translateService: TranslateService
@@ -43,6 +47,8 @@ export class AcquireComponent implements OnInit, OnDestroy {
         this.acquireService.initGame();
         this.acquireEventService.notifyGameEntered();
         this.translateService.get([
+            'MESSAGE.END_TURN_WITHOUT_STOCKS_TITLE',
+            'MESSAGE.END_TURN_WITHOUT_STOCKS_MESSAGE',
             'MESSAGE.END_GAME_PROMPT_TITLE',
             'MESSAGE.END_GAME_PROMPT_MESSAGE',
             'ACTIONS.YES',
@@ -50,6 +56,8 @@ export class AcquireComponent implements OnInit, OnDestroy {
         ]).subscribe((result) => {
             this.endGamePromptTitle = result['MESSAGE.END_GAME_PROMPT_TITLE'];
             this.endGamePromptMessage = result['MESSAGE.END_GAME_PROMPT_MESSAGE'];
+            this.endTurnWithoutStocksTitle = result['MESSAGE.END_TURN_WITHOUT_STOCKS_TITLE'];
+            this.endTurnWithoutStocksMessage = result['MESSAGE.END_TURN_WITHOUT_STOCKS_MESSAGE'];
             this.yesLabel = result['ACTIONS.YES'];
             this.cancelLabel = result['ACTIONS.CANCEL'];
         });
@@ -101,7 +109,39 @@ export class AcquireComponent implements OnInit, OnDestroy {
     }
 
     endTurn(): void {
-        this.acquireEventService.notifyEndTurn();
+        if (!this.getStockSharesForPurchase().length && this.playerCanAffordAtleastOneStock()) {
+            let confirm = this.alertCtrl.create({
+                title: this.endTurnWithoutStocksTitle,
+                message: this.endTurnWithoutStocksMessage,
+                buttons: [
+                    {
+                        text: this.yesLabel,
+                        handler: () => {
+                            this.acquireEventService.notifyEndTurn();
+                        }
+                    },
+                    {
+                        text: this.cancelLabel
+                    }
+                ]
+            });
+            confirm.present();
+        } else {
+            this.acquireEventService.notifyEndTurn();
+        }
+    }
+
+    playerCanAffordAtleastOneStock(): boolean {
+        let player = this.playerService.getCurrentPlayer();
+        let activeHotelChains = this.hotelChainService.getActiveHotelChains();
+        for (let hotelChain of activeHotelChains) {
+            if (this.stockShareService.hasAvailableStockShare(hotelChain)) {
+                if (player.cash > hotelChain.getStockPrice()) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     canEndGame(): boolean {

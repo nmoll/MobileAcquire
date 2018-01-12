@@ -22,6 +22,10 @@ export class HotelChainService {
         return this.getHotelChains().filter(hotelChain => hotelChain.tiles.length > 0);
     }
 
+    getInactiveHotelChains(): HotelChain[] {
+        return this.getHotelChains().filter(hotelChain => !hotelChain.tiles.length);
+    }
+
     isAllHotelChainsActive(): boolean {
         return this.getActiveHotelChains().length == this.getHotelChains().length;
     }

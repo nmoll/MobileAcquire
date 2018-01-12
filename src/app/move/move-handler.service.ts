@@ -139,7 +139,7 @@ export class MoveHandlerService {
     }
 
     chooseHotelChainToStart(tile: Tile, adjacentTiles: Tile[]): Promise<Object> {
-        var hotelChains = this.hotelChainService.getHotelChains().filter(hotelChain => !hotelChain.tiles.length);
+        var hotelChains = this.hotelChainService.getInactiveHotelChains();
         var promise = this.getMoveHandler().chooseHotelChainToStart(hotelChains);
         promise.then((hotelChain) => {
             hotelChain.addTile(tile);
