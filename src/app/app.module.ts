@@ -28,6 +28,7 @@ import { NotificationService } from './notification/notification.service';
 import { FirstPersonMoveHandler } from './move/first-person-move-handler';
 import { ComputerMoveHandler } from './move/computer-move-handler';
 
+import { HotelChainDetailsComponent } from './hotel-chain/hotel-chain-details.component';
 import { HotelChainSelectModalComponent } from './hotel-chain/hotel-chain-select.modal';
 import { HotelChainStocksModalComponent } from './hotel-chain/hotel-chain-stocks.modal';
 import { HotelChainMergeStocksModalComponent } from './hotel-chain/hotel-chain-merge-stocks.modal';
@@ -43,6 +44,7 @@ import { HttpLoaderFactory } from './utils/factory/http-loader-factory';
     BoardComponent,
     GameCreateComponent,
     ScoreboardComponent,
+    HotelChainDetailsComponent,
     HotelChainSelectModalComponent,
     HotelChainStocksModalComponent,
     HotelChainMergeStocksModalComponent,
@@ -65,6 +67,7 @@ import { HttpLoaderFactory } from './utils/factory/http-loader-factory';
     MyApp,
     HomePage,
     AcquireComponent,
+    HotelChainDetailsComponent,
     HotelChainSelectModalComponent,
     HotelChainStocksModalComponent,
     HotelChainMergeStocksModalComponent,

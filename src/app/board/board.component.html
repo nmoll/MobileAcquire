@@ -1,7 +1,7 @@
 <div class="board">
     <div *ngFor="let square of squares"
         class="boardSquare {{getBoardSquareClass(square)}}"
-        (tap)="onSquareSelected(square)">
+        (tap)="onSquareSelected(square, $event)">
         <span class="square-label">{{ square.getDisplay() }}</span>
     </div>
 </div>

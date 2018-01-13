@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { PopoverController } from 'ionic-angular';
+
+import { HotelChainDetailsComponent } from '../hotel-chain/hotel-chain-details.component';
 
 import { AcquireEventService } from '../acquire/acquire-event.service';
 import { BoardSquare } from './board-square';
@@ -8,6 +11,7 @@ import { MoveHandlerService } from '../move/move-handler.service';
 import { GameService } from '../game/game.service';
 
 import { PlayerType } from '../player/player';
+import { HotelChain } from '../hotel-chain/hotel-chain';
 
 @Component({
     selector: 'board',
@@ -20,7 +24,8 @@ export class BoardComponent implements OnInit {
         private boardSquareService: BoardSquareService,
         private playerService: PlayerService,
         private moveHandlerService: MoveHandlerService,
-        private gameService: GameService
+        private gameService: GameService,
+        private popoverCtrl: PopoverController
     ) {}
 
     squares: BoardSquare[];
@@ -55,7 +60,11 @@ export class BoardComponent implements OnInit {
         return result;
     }
 
-    onSquareSelected(square: BoardSquare): void {
+    onSquareSelected(square: BoardSquare, event: any): void {
+
+        if (square.tile && square.tile.hotelChain) {
+            this.onHotelChainSelected(square.tile.hotelChain, event);
+        }
 
         if (this.gameService.isCurrentGameEnded()) {
             return;
@@ -70,6 +79,15 @@ export class BoardComponent implements OnInit {
             var tile = player.getTileBySquareId(square.id);
             this.acquireEventService.notifyTileSelected(tile);
         }
+    }
+
+    private onHotelChainSelected(hotelChain: HotelChain, event: any) {
+        let popover = this.popoverCtrl.create(HotelChainDetailsComponent, {
+            hotelChain: hotelChain
+        });
+        popover.present({
+            ev: event
+        });
     }
 
     private isSquarePlayable(square: BoardSquare): boolean {
