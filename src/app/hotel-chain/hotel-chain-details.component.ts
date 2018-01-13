@@ -31,10 +31,14 @@ export class HotelChainDetailsComponent implements OnInit {
 
     ngOnInit() {
         this.hotelChain = this.navParams.data.hotelChain;
-        this.players = this.playerService.getPlayers().sort((p1, p2) => {
-            return p2.getStockShareForHotelChain(this.hotelChain).quantity -
-                p1.getStockShareForHotelChain(this.hotelChain).quantity;
-        });
+        this.players = this.playerService.getPlayers()
+            .filter((p) => {
+                return p.getStockShareForHotelChain(this.hotelChain).quantity > 0;
+            })
+            .sort((p1, p2) => {
+                return p2.getStockShareForHotelChain(this.hotelChain).quantity -
+                    p1.getStockShareForHotelChain(this.hotelChain).quantity;
+            });
     }
 
 }
