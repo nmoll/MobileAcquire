@@ -1,26 +1,18 @@
-This is a starter template for [Ionic](http://ionicframework.com/docs/) projects.
+MobileAcquire is the Acquire board game as a phone app. It is built with Ionic.
 
-## How to use this template
+## How to install and run the application
 
-*This template does not work on its own*. The shared files for each starter are found in the [ionic2-app-base repo](https://github.com/ionic-team/ionic2-app-base).
+### Cloning the project
 
-To use this template, either create a new ionic project using the ionic node.js utility, or copy the files from this repository into the [Starter App Base](https://github.com/ionic-team/ionic2-app-base).
+Clone the project with the command `git clone https://github.com/nmoll/MobileAcquire.git`
 
-### With the Ionic CLI:
+### Installing Ionic CLI:
 
-Take the name after `ionic2-starter-`, and that is the name of the template to be used when using the `ionic start` command below:
+Install ionic with the command `npm install -g ionic cordova`
 
-```bash
-$ sudo npm install -g ionic cordova
-$ ionic start myBlank blank
-```
+### Starting the app
 
-Then, to run it, cd into `myBlank` and run:
+cd into the project, and run the command `ionic serve`
 
-```bash
-$ ionic cordova platform add ios
-$ ionic cordova run ios
-```
-
-Substitute ios for android if not on a Mac.
+Once the application is started, navigate to http://localhost:8100/
 
