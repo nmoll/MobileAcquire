@@ -13,7 +13,7 @@
 </ion-header>
 
 <ion-content padding>
-  <div style="margin-bottom: 20px;">
+  <div style="margin-bottom: 10px;">
       {{ "PLAYER.AVAILABLE_CASH" | translate }}: <span style="color: green">${{ getAvailableCash() }}</span>
   </div>
 
@@ -36,17 +36,19 @@
         </ion-row>
       </ion-grid>
 
-      <ion-card *ngFor="let stock of getStockShareOrder().stockShares" (tap)="addStock(stock)">
-        <ion-card-header>
-          <ion-grid>
-            <ion-row>
-              <ion-col col-9>{{ stock.hotelChain.name }}</ion-col>
-              <ion-col col-3 style="text-align:right;">
-                <span style="color: green;">${{ getStockSharePrice(stock) }}</span>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-card-header>
-      </ion-card>
+      <div style="height: 200px; overflow: auto;">
+        <ion-card *ngFor="let stock of getStockShareOrder().stockShares" (tap)="addStock(stock)">
+          <ion-card-header>
+            <ion-grid>
+              <ion-row>
+                <ion-col col-9>{{ stock.hotelChain.name }}</ion-col>
+                <ion-col col-3 style="text-align:right;">
+                  <span style="color: green;">${{ getStockSharePrice(stock) }}</span>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card-header>
+        </ion-card>
+      </div>
   </div>
 </ion-content>
