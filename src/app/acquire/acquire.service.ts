@@ -5,7 +5,6 @@ import { MoveHandlerService } from '../move/move-handler.service';
 import { BoardSquareService } from '../board/board-square.service';
 import { StockShareService } from '../stock-share/stock-share.service';
 import { NotificationService } from '../notification/notification.service';
-
 import { StockShare } from '../stock-share/stock-share';
 
 @Injectable()
@@ -41,8 +40,7 @@ export class AcquireService {
     private onMoveComplete(): void {
         this.playerService.onEndTurn();
         this.stockShareService.resolvePlayerShares();
-        this.playerService.rotateCurrentPlayer();
-        this.waitForNextMove();
+        this.playerService.rotateCurrentPlayer().then(data => this.waitForNextMove());
     }
 
 }

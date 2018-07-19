@@ -9,6 +9,9 @@ import { BoardSquare } from '../board/board-square';
 import { AcquireEventService } from '../acquire/acquire-event.service';
 import { GameService } from '../game/game.service';
 import { TileBagService } from '../tile/tile-bag.service';
+import { TranslateService } from '@ngx-translate/core';
+
+import { AlertController } from 'ionic-angular';
 
 @Injectable()
 export class PlayerService {
@@ -18,7 +21,9 @@ export class PlayerService {
     constructor(
         private acquireEventService: AcquireEventService,
         private gameService: GameService,
-        private tileBagService: TileBagService
+        private tileBagService: TileBagService,
+        private translateService: TranslateService,
+        private alertCtrl: AlertController
     ) {
         acquireEventService.gameEnteredEvent.subscribe(() => this.onGameEntered());
         acquireEventService.gameExitedEvent.subscribe(() => this.onGameExited());
@@ -32,8 +37,43 @@ export class PlayerService {
         return this.gameService.currentGame.currentPlayer;
     }
 
-    rotateCurrentPlayer(): void {
-        this.gameService.currentGame.rotateCurrentPlayer();
+    rotateCurrentPlayer(): Promise<void> {
+        let nextPlayer = this.getNextPlayerInList(this.getCurrentPlayer());
+        return this.promptForTurnStart(nextPlayer).then(arg => this.gameService.currentGame.rotateCurrentPlayer());
+        
+    }
+
+    private promptForTurnStart(player: Player): Promise<any> {
+        var resolver;
+        var promise = new Promise(function (resolve) {
+            resolver = resolve;
+        });
+        
+        if (player.playerType == PlayerType.FIRST_PERSON && this.hasMultipleFirstPlayers()) {
+            this.translateService.get([
+                'MESSAGE.PLAYER_TURN_START',
+                'MESSAGE.PLAYER_TURN_START_BUTTON'
+            ], {
+                player: player.name
+            }).subscribe((messages: string) => {
+                let alert = this.alertCtrl.create({
+                    title: messages['MESSAGE.PLAYER_TURN_START'],
+                    buttons: [
+                        {
+                          text: messages['MESSAGE.PLAYER_TURN_START_BUTTON'],
+                          handler: data => {
+                            resolver();
+                          }
+                        }
+                      ]
+                });
+                alert.present();
+            });
+        } else {
+            resolver();
+        }
+
+        return promise;
     }
 
     discardAndDrawNewTile(tile: Tile): void {
@@ -112,6 +152,16 @@ export class PlayerService {
         }
 
         return winners;
+    }
+
+    hasMultipleFirstPlayers(): boolean {
+        let firstPlayerCount = 0;
+        for  (let player of this.gameService.currentGame.players) {
+            if  (player.playerType == PlayerType.FIRST_PERSON) {
+                firstPlayerCount++;
+            }
+        }
+        return firstPlayerCount >= 2;
     }
 
     cashInStocks(player: Player): void {

@@ -4,6 +4,8 @@ import { NavParams } from 'ionic-angular';
 import { PlayerService } from '../player/player.service';
 import { HotelChain } from '../hotel-chain/hotel-chain';
 
+import { Player } from '../player/player';
+
 @Component({
     selector: 'hotel-details',
     template: `
@@ -22,7 +24,7 @@ import { HotelChain } from '../hotel-chain/hotel-chain';
 export class HotelChainDetailsComponent implements OnInit {
 
     private hotelChain: HotelChain;
-    private players: Players;
+    private players: Player[];
 
     constructor(
         private navParams: NavParams,

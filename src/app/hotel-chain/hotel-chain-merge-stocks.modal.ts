@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ViewController, NavParams } from 'ionic-angular';
 import { HotelChainMergeResult } from '../hotel-chain/hotel-chain-merge-result';
 import { Player } from '../player/player';
+import { StockShareService } from '../stock-share/stock-share.service';
 
 @Component({
     selector: 'hotel-chain-merge-stocks-modal',
@@ -11,7 +12,8 @@ export class HotelChainMergeStocksModalComponent implements OnInit {
 
     constructor (
       private viewCtrl: ViewController,
-      private params: NavParams
+      private params: NavParams,
+      private stockShareService: StockShareService
     ) {
       this.player = this.params.get('player');
       this.mergeResult = this.params.get('mergeResult');
@@ -38,9 +40,15 @@ export class HotelChainMergeStocksModalComponent implements OnInit {
     }
 
     trade(): void {
-        if (this.stockShares < 2) return;
+        if (!this.canTrade()) return;
         this.stockShares -= 2;
         this.stockSharesToTrade++;
+    }
+
+    canTrade(): boolean {
+        let availableStockShares = this.stockShareService.getAvailableStockShares(this.mergeResult.destination);
+
+        return this.stockShares >= 2 && availableStockShares - this.stockSharesToTrade >= 1;
     }
 
     removeTrade(): void {

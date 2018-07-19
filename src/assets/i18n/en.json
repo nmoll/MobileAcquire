@@ -32,7 +32,9 @@
         "END_GAME_PROMPT_TITLE": "End Game",
         "END_GAME_PROMPT_MESSAGE": "Are you sure you want to end the game?",
         "END_TURN_WITHOUT_STOCKS_TITLE": "No Stocks Purchased",
-        "END_TURN_WITHOUT_STOCKS_MESSAGE": "You are about to end your turn without buying any stocks. Continue?"
+        "END_TURN_WITHOUT_STOCKS_MESSAGE": "You are about to end your turn without buying any stocks. Continue?",
+        "PLAYER_TURN_START": "Ready, {{ player }}?",
+        "PLAYER_TURN_START_BUTTON": "I'm Ready"
     },
     "PLAYER": {
         "AVAILABLE_CASH": "Available Cash",
