@@ -16,7 +16,7 @@ import { AlertController } from 'ionic-angular';
 @Injectable()
 export class PlayerService {
 
-    private tileSelectedEventSubscription: Subscription;
+    tileSelectedEventSubscription: Subscription;
 
     constructor(
         private acquireEventService: AcquireEventService,
@@ -25,8 +25,12 @@ export class PlayerService {
         private translateService: TranslateService,
         private alertCtrl: AlertController
     ) {
-        acquireEventService.gameEnteredEvent.subscribe(() => this.onGameEntered());
-        acquireEventService.gameExitedEvent.subscribe(() => this.onGameExited());
+        this.onInit();
+    }
+    
+    onInit() {
+        this.acquireEventService.gameEnteredEvent.subscribe(() => this.onGameEntered());
+        this.acquireEventService.gameExitedEvent.subscribe(() => this.onGameExited());
     }
 
     getPlayers(): Player[] {
@@ -39,8 +43,9 @@ export class PlayerService {
 
     rotateCurrentPlayer(): Promise<void> {
         let nextPlayer = this.getNextPlayerInList(this.getCurrentPlayer());
+        this.gameService.currentGame.rotateCurrentPlayer()
         return this.promptForTurnStart(nextPlayer).then(arg => this.gameService.currentGame.rotateCurrentPlayer());
-        
+
     }
 
     private promptForTurnStart(player: Player): Promise<any> {
@@ -61,7 +66,7 @@ export class PlayerService {
                     buttons: [
                         {
                           text: messages['MESSAGE.PLAYER_TURN_START_BUTTON'],
-                          handler: data => {
+                          handler: (data) => {
                             resolver();
                           }
                         }

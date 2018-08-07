@@ -1,1 +1,4 @@
-export class TileBagServiceMock {}
+export class TileBagServiceMock {
+    isEmpty() {}
+    pick() {}
+}

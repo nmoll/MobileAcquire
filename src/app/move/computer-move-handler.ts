@@ -24,7 +24,7 @@ export class ComputerMoveHandler extends MoveHandler {
 
     getMove(): Promise<Tile> {
         var resolver;
-        var promise = new Promise(function (resolve) {
+        var promise = new Promise<Tile>(function (resolve) {
             resolver = resolve;
         });
 
@@ -45,7 +45,7 @@ export class ComputerMoveHandler extends MoveHandler {
 
     chooseHotelChainToStart(hotelChains: HotelChain[]): Promise<HotelChain> {
         var resolver;
-        var promise = new Promise(function (resolve) {
+        var promise = new Promise<HotelChain>(function (resolve) {
             resolver = resolve;
         });
 
@@ -56,7 +56,7 @@ export class ComputerMoveHandler extends MoveHandler {
 
     chooseMerge(hotelChains: HotelChain[]): Promise<HotelChainMergeResult> {
         var resolver;
-        var promise = new Promise(function (resolve) {
+        var promise = new Promise<HotelChainMergeResult>(function (resolve) {
             resolver = resolve;
         });
 

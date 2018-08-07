@@ -33,7 +33,7 @@ export class AcquireService {
     }
 
     getStockSharesForPurchase(): StockShare[] {
-        let order = this.playerService.getCurrentPlayer().stockShareOrder
+        let order = this.playerService.getCurrentPlayer().stockShareOrder;
         return order.stockShares || [];
     }
 

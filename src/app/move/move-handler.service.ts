@@ -194,7 +194,7 @@ export class MoveHandlerService {
 
     getMergeResult(optionA: HotelChain, optionB: HotelChain): Promise<HotelChainMergeResult> {
         var resolver;
-        var promise = new Promise(function (resolve) {
+        var promise = new Promise<HotelChainMergeResult>(function (resolve) {
             resolver = resolve;
         });
 
@@ -242,7 +242,7 @@ export class MoveHandlerService {
 
     mergeHotelChains(tile: Tile, adjacentTiles: Tile[], mergeResult: HotelChainMergeResult): Promise<HotelChainMergeResult> {
         var resolver;
-        var promise = new Promise(function (resolve) {
+        var promise = new Promise<HotelChainMergeResult>(function (resolve) {
             resolver = resolve;
         });
         var tiles = mergeResult.source.tiles;

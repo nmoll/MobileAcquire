@@ -1,5 +1,5 @@
+import { GameMock } from "./game.mock";
+
 export class GameServiceMock {
-    currentGame = {
-        getNextPlayerInList: function () {}
-    }
+    currentGame: GameMock = new GameMock();
 }
