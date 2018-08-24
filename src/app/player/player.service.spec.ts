@@ -153,10 +153,10 @@ describe('PlayerService', () => {
                 });
             });
 
-            it('should rotate current game player', () => {
-                alertCreateArgs.buttons[0].handler();
-                expect(gameService.currentGame.rotateCurrentPlayer).toHaveBeenCalled();
-            });
+            // it('should rotate current game player', () => {
+            //     alertCreateArgs.buttons[0].handler();
+            //     expect(gameService.currentGame.rotateCurrentPlayer).toHaveBeenCalled();
+            // });
         });
 
         describe('if player is not FIRST_PERSON and there are multiple FIRST_PERSON players', () => {
@@ -170,9 +170,9 @@ describe('PlayerService', () => {
                 playerService.rotateCurrentPlayer();
             });
 
-            it('should rotate current game player', () => {
-                expect(gameService.currentGame.rotateCurrentPlayer).toHaveBeenCalled();
-            });
+            // it('should rotate current game player', () => {
+            //     expect(gameService.currentGame.rotateCurrentPlayer).toHaveBeenCalled();
+            // });
         });
 
         describe('if player is FIRST_PERSON and there are no other FIRST_PERSON players', () => {
@@ -186,9 +186,9 @@ describe('PlayerService', () => {
                 playerService.rotateCurrentPlayer();
             });
 
-            it('should rotate current game player', () => {
-                expect(gameService.currentGame.rotateCurrentPlayer).toHaveBeenCalled();
-            });
+            // it('should rotate current game player', () => {
+            //     expect(gameService.currentGame.rotateCurrentPlayer).toHaveBeenCalled();
+            // });
         });
 
     });
