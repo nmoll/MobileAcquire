@@ -21,6 +21,14 @@ export class StockShareOrder {
         return this.getTotalQuantity() >= 3;
     }
 
+    numAvailableSlotsToPurchase(): number {
+        return 3 - this.getTotalQuantity();
+    }
+
+    getStockShareByHotelChain(hotelChain: HotelChain): StockShare {
+        return this.stockShares.filter((stockShare: StockShare) => stockShare.hotelChain.type == hotelChain.type)[0];
+    }
+
     private getTotalQuantity(): number {
         var result = 0;
         for (let stockShare of this.stockShares) {

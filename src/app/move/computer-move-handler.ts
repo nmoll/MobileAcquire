@@ -9,6 +9,7 @@ import { BoardSquareService } from '../board/board-square.service';
 import { PlayerService } from '../player/player.service';
 import { HotelChainService } from '../hotel-chain/hotel-chain.service';
 import { MoveHandler } from './move-handler';
+import { BasicPlayerStrategy } from '../strategy/basic-player-strategy';
 
 @Injectable()
 export class ComputerMoveHandler extends MoveHandler {
@@ -17,7 +18,8 @@ export class ComputerMoveHandler extends MoveHandler {
         hotelChainService: HotelChainService,
         private acquireEventService: AcquireEventService,
         private playerService: PlayerService,
-        private boardSquareService: BoardSquareService
+        private boardSquareService: BoardSquareService,
+        private playerStrategy: BasicPlayerStrategy
     ) {
         super(hotelChainService);
     }
@@ -82,6 +84,10 @@ export class ComputerMoveHandler extends MoveHandler {
         var promise = new Promise(function (resolve) {
             resolver = resolve;
         });
+
+        let player = this.playerService.getCurrentPlayer();
+        let stockShareOrder = this.playerStrategy.buyStocks(player);
+        player.stockShareOrder = stockShareOrder;
 
         resolver();
 

@@ -35,6 +35,7 @@ import { HotelChainMergeStocksModalComponent } from './hotel-chain/hotel-chain-m
 
 import { TimesPipe } from './utils/pipe/times-pipe';
 import { HttpLoaderFactory } from './utils/factory/http-loader-factory';
+import { BasicPlayerStrategy } from './strategy/basic-player-strategy';
 
 @NgModule({
   declarations: [
@@ -90,7 +91,8 @@ import { HttpLoaderFactory } from './utils/factory/http-loader-factory';
     StockShareService,
     NotificationService,
     FirstPersonMoveHandler,
-    ComputerMoveHandler
+    ComputerMoveHandler,
+    BasicPlayerStrategy
   ]
 
 })
