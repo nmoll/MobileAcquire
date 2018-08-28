@@ -25,6 +25,7 @@
 }
 
 .acquire-game {
+    background: black;
     height: 100%;
 }
 
@@ -334,10 +335,26 @@
   color: white;
   background: #2b2b2b;
   position: absolute;
-  top: 0;
+  top: 40px;
   bottom: 0;
   left: 0;
   right: 0;
+}
+
+.player-deck {
+    color: #d1d1d1;
+    text-align: center;
+}
+
+.money {
+    color: green;
+}
+
+.hotel-id {
+    font-size: 60%;
+    position: relative;
+    top: -5px;
+    left: -5px;
 }
 
 .acquire-toast {

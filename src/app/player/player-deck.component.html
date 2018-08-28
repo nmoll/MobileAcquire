@@ -1,0 +1,5 @@
+<ion-row class="player-deck">
+    <ion-col *ngFor="let player of players">
+        {{ player.name }} - <span class="money">${{ player.cash }} </span>
+    </ion-col>
+</ion-row>

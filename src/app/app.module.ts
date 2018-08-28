@@ -36,6 +36,7 @@ import { HotelChainMergeStocksModalComponent } from './hotel-chain/hotel-chain-m
 import { TimesPipe } from './utils/pipe/times-pipe';
 import { HttpLoaderFactory } from './utils/factory/http-loader-factory';
 import { BasicPlayerStrategy } from './strategy/basic-player-strategy';
+import { PlayerDeckComponent } from './player/player-deck.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { BasicPlayerStrategy } from './strategy/basic-player-strategy';
     HotelChainSelectModalComponent,
     HotelChainStocksModalComponent,
     HotelChainMergeStocksModalComponent,
+    PlayerDeckComponent,
     TimesPipe
   ],
   imports: [
@@ -73,7 +75,8 @@ import { BasicPlayerStrategy } from './strategy/basic-player-strategy';
     HotelChainStocksModalComponent,
     HotelChainMergeStocksModalComponent,
     ScoreboardComponent,
-    GameCreateComponent
+    GameCreateComponent,
+    PlayerDeckComponent
   ],
   providers: [
     StatusBar,
