@@ -16,7 +16,8 @@ export class NotificationService {
         private playerService: PlayerService,
         private translateService: TranslateService
     ) {
-        this.acquireEventService.tilePlacedEvent.subscribe((tile) => this.onTilePlaced(tile));
+        // Turning this off for now
+        // this.acquireEventService.tilePlacedEvent.subscribe((tile) => this.onTilePlaced(tile));
     }
 
     onTilePlaced(tile: Tile): void {

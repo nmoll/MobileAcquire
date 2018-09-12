@@ -1,27 +1,9 @@
 <ion-row class="acquire-game">
     <ion-col col-9 class="acquire-game-col">
         <player-deck></player-deck>
-        <board></board>
+        <board [currentPlayerAction]="currentPlayerAction"></board>
     </ion-col>
     <ion-col col-3 text-center class="acquire-game-col">
-        <button icon-left ion-button full outline large (tap)="showScoreboard()">
-            <ion-icon name="clipboard"></ion-icon> {{ "ACTIONS.SCOREBOARD" | translate }}
-        </button>
-        <button ion-button round outline large [disabled]="!canPlaceTile()" (click)="placeTile()">{{ "ACTIONS.PLACE_TILE" | translate }}</button>
-        <button ion-button round outline large [disabled]="!canBuyStocks()" (click)="buyStocks()">
-            <span class="btn-progress">
-                <ng-template ngFor let-stock [ngForOf]="getStockSharesForPurchase()">
-                    <ng-template ngFor let-i [ngForOf]="stock.quantity | times">
-                        <span class="btn-progress-part stock-background-{{ stock.hotelChain.type }}"></span>
-                    </ng-template>
-                </ng-template>
-            </span>
-            <span class="bring-forward">{{ "ACTIONS.BUY_STOCKS" | translate }}</span>
-        </button>
-        <button ion-button round outline large [disabled]="!isTilePlaced()" (click)="endTurn()">{{ "ACTIONS.END_TURN" | translate }}</button>
-        <button ion-button round outline large [disabled]="!canEndGame()" (click)="endGame()">{{ "ACTIONS.END_GAME" | translate }}</button>
-        <button icon-left ion-button full outline (click)="exitGame()">
-            <ion-icon name="exit"></ion-icon> {{ "ACTIONS.EXIT_GAME" | translate }}
-        </button>
+        <action-menu (onMenuChange)="setCurrentPlayerAction($event)"></action-menu>
     </ion-col>
 </ion-row>

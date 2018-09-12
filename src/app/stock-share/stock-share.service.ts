@@ -28,9 +28,13 @@ export class StockShareService {
     getTotalPrice(): number {
         var result = 0;
         var stockShareOrder = this.playerService.getCurrentPlayer().stockShareOrder;
+
+        if (!stockShareOrder) {
+            return 0;
+        }
+
         for (let stockShare of stockShareOrder.stockShares) {
-            var stockPrice = stockShare.hotelChain.getStockPrice();
-            result += (stockShare.quantity * stockPrice);
+            result += stockShare.getPrice();
         }
         return result;
     }

@@ -1,0 +1,48 @@
+<div *ngIf="!isCurrentPlayerComputer() || playerAction == PlayerActionType.RESOLVE_MERGE_STOCKS">
+    <!-- <button icon-left ion-button full outline large (tap)="showScoreboard()">
+        <ion-icon name="clipboard"></ion-icon> 
+        {{ "ACTIONS.SCOREBOARD" | translate }}
+    </button> -->
+
+    <div [ngSwitch]="playerAction">
+        <div *ngSwitchCase="PlayerActionType.HISTORY_LOG">
+            <action-menu-history-log (onOk)="onHistoryLogOk()"></action-menu-history-log>
+        </div>
+        
+        <div *ngSwitchCase="PlayerActionType.PLACE_TILE" style="margin-top: 30px;">
+                <action-menu-place-tile></action-menu-place-tile>
+                <button icon-left ion-button full outline 
+                (click)="exitGame()" style="position: absolute; bottom: 0;">
+                <ion-icon name="exit"></ion-icon> 
+                {{ "ACTIONS.EXIT_GAME" | translate }}
+            </button>
+        </div>
+        
+        <div *ngSwitchCase="PlayerActionType.BUY_STOCKS">
+            <action-menu-buy-stocks></action-menu-buy-stocks>
+        </div>
+
+        <div *ngSwitchCase="PlayerActionType.RESOLVE_MERGE_STOCKS">
+            <action-menu-resolve-merge-stocks 
+                *ngIf="resolveMergeStocksRequest"
+                (onDone)="onPlayerActionRequestDone()"
+                [playerActionRequest]="resolveMergeStocksRequest">
+            </action-menu-resolve-merge-stocks>
+        </div>
+    </div>
+
+
+    <button ion-button round outline large (click)="endTurn()" *ngIf="playerAction == PlayerActionType.BUY_STOCKS">
+        {{ "ACTIONS.END_TURN" | translate }}
+    </button>
+    
+    <button ion-button round outline large *ngIf="canEndGame()" (click)="endGame()">
+        {{ "ACTIONS.END_GAME" | translate }}
+    </button>
+    
+</div>
+
+<div *ngIf="isCurrentPlayerComputer() && playerAction != PlayerActionType.RESOLVE_MERGE_STOCKS" 
+    class="vertical-align-content" style="padding: 10px; padding-top: 50%; font-style: italic;">
+    <span>{{ "MESSAGE.WAIT_FOR_COMPUTER_MESSAGE" | translate : { player: getCurrentPlayerName() } }}</span>
+</div>

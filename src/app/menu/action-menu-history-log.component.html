@@ -1,0 +1,26 @@
+<div>
+    <div style="text-decoration: underline; margin-bottom: 10px;">
+        {{ "HISTORY_LOG.RECENT_ACTION" | translate }}
+    </div>
+    <div style="text-align: left;">
+        <div *ngFor="let historyLog of historyLogs">
+            <div style="margin-left: 10px;">
+                {{ historyLog.player.name }}
+            </div>
+            <div style="margin-left: 20px">
+                {{ "HISTORY_LOG.PLAYED_TILE" | translate : { tile: historyLog.tile.display } }}
+            </div>
+
+            <div *ngIf="historyLog.stockShareOrder != null">
+                <div *ngFor="let stockShare of historyLog.stockShareOrder.stockShares">
+                    <span *ngIf="stockShare.quantity > 0" style="margin-left: 20px">
+                        {{ "HISTORY_LOG.SHARES_BOUGHT" | translate : { quantity: stockShare.quantity } }} 
+                        <span class="stock-color-{{ stockShare.hotelChain.type }}">{{ stockShare.hotelChain.abbreviation }}</span>                
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <button (tap)="ok()" ion-button round outline large>{{ "ACTIONS.OK" | translate }}</button>
+</div>

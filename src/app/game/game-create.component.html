@@ -17,7 +17,8 @@
             <ion-grid>
                 <ion-row>
                     <ion-col col-10>
-                        {{ "GAME.PLAYER" | translate }} {{ i + 1 }}
+                        <span *ngIf="i > 0">{{ "GAME.PLAYER" | translate }} {{ i + 1 }}</span>
+                        <span *ngIf="i == 0">{{ "PLAYER.SELF" | translate }}</span>
                     </ion-col>
                     <ion-col col-2 text-right right>
                         <button ion-button small color="danger" (tap)="removePlayer(player)" *ngIf="players.length > 2">
@@ -32,7 +33,7 @@
                 <ion-label fixed color="primary">{{ "PLAYER.NAME" | translate }}</ion-label>
                 <ion-input placeholder="Player Name" type="text" [(ngModel)]="player.name"></ion-input>
             </ion-item>
-            <ion-item>
+            <ion-item *ngIf="i > 0">
                 <ion-label fixed color="primary">{{ "PLAYER.TYPE" | translate }}</ion-label>
                 <ion-select [(ngModel)]="player.playerType">
                     <ion-option value="1">{{ "PLAYER.TYPE_HUMAN" | translate }}</ion-option>
@@ -41,7 +42,7 @@
             </ion-item>
         </ion-card-content>
   </ion-card>
-  <button ion-button block icon-left (tap)="addPlayer()" *ngIf="players.length < 6">
+  <button ion-button block icon-left (tap)="addPlayer()" *ngIf="players.length < 4">
       <ion-icon name="add-circle"></ion-icon>
       {{ "GAME.ADD_PLAYER" | translate }}
   </button>

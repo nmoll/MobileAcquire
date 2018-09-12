@@ -19,12 +19,13 @@
       <ion-card-header>
         <ion-grid>
           <ion-row>
-            <ion-col col-9>
+            <ion-col col-4>
               <span class="stock-color-{{hotelChain.type}}">
                 {{ hotelChain.name }}
               </span>
             </ion-col>
-            <ion-col col-3 style="text-align:right;">
+            <ion-col col-8 style="text-align:right;">
+              <span class="text-muted">Shares starting at -</span>
               <span style="color: green;">${{ hotelChain.getStartingStockPrice() }}</span>
             </ion-col>
           </ion-row>

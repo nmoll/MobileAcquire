@@ -72,4 +72,8 @@ export class Player {
             this.addStockShare(stockShare);
         }
     }
+
+    isComputer(): boolean {
+        return this.playerType == PlayerType.COMPUTER;
+    }
 }

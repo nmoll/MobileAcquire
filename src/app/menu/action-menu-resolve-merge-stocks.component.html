@@ -1,0 +1,109 @@
+<div>
+    <div *ngIf="!playerReadyToResolve">
+        <p>
+            <i>{{ "MERGE.MESSAGE" | translate : { source: mergeResult.source.name, destination: mergeResult.destination.name } }}</i>
+        </p>
+        
+        <div style="margin-top: 10px;">
+            <div>Player 2</div>
+            <div>{{ "MERGE.KEPT" | translate : { shares: 99 } }}, {{ "MERGE.TRADED" | translate : { shares: 98 } }}, {{ "MERGE.SOLD" | translate : { shares: 97 } }}</div>
+        </div>
+
+        <div style="margin-top: 10px;">
+            <div>{{ "PLAYER.SELF" | translate }}</div>
+            <div>{{ "MERGE.HAVE_SHARES" | translate : { shares: stockShares } }}</div>
+        </div>
+
+        <div style="margin-top: 10px;">
+            <div>Player 3</div>
+            <div>{{ "MERGE.HAS_SHARES" | translate : { shares: 99 } }}</div>
+        </div>
+
+        <div style="margin-top: 20px;">
+            <button ion-button outline (tap)="playerReadyToResolve = true" style="width:100%;">
+                <ion-icon name="return-right"></ion-icon>
+            </button>
+        </div>
+    </div>
+
+    <div *ngIf="playerReadyToResolve">
+
+        <p>{{ "MERGE.STOCKS_TO_RESOLVE" | translate  : { shares: stockShares } }}</p>
+
+        <ion-row>
+            <ion-col>
+                <span>{{ "MERGE.KEEP" | translate }}</span>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col col-5>
+                <button ion-button outline style="width: 100%" (tap)="removeHeld()" [disabled]="stockSharesToHold <= 0"> 
+                    <ion-icon name="remove"></ion-icon>
+                </button>
+            </ion-col>
+            <ion-col col-2 style="padding-top: 14px;">
+                <span style="font-size: 20px;">{{ stockSharesToHold }}</span>
+            </ion-col>
+            <ion-col col-5>
+                <button ion-button outline style="width: 100%" (tap)="hold()" [disabled]="stockShares <= 0">
+                    <ion-icon name="add"></ion-icon>
+                </button>
+            </ion-col>
+        </ion-row>
+    
+        <ion-row>
+            <ion-col>
+                <span>{{ "MERGE.TRADE" | translate }}</span>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col col-5>
+                <button ion-button outline style="width: 100%" (tap)="removeTrade()" [disabled]="stockSharesToTrade <= 0">
+                    <ion-icon name="remove"></ion-icon>
+                </button>
+            </ion-col>
+            <ion-col col-2 style="padding-top: 14px;">
+                <span style="font-size: 20px;">{{ stockSharesToTrade }}</span>
+            </ion-col>
+            <ion-col col-5>
+                <button ion-button outline style="width: 100%" (tap)="trade()" [disabled]="!canTrade()">
+                    <ion-icon name="add"></ion-icon>
+                </button>
+            </ion-col>
+        </ion-row>
+    
+        <ion-row>
+            <ion-col>
+                <span>{{ "MERGE.SELL" | translate : { price: mergeResult.source.getStockPrice() } }}</span>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col col-5>
+                <button ion-button outline style="width: 100%" (tap)="removeSold()" [disabled]="stockSharesToSell <= 0">
+                    <ion-icon name="remove"></ion-icon>
+                </button>
+            </ion-col>
+            <ion-col col-2 style="padding-top: 14px;">
+                <span style="font-size: 20px;">{{ stockSharesToSell }}</span>
+            </ion-col>
+            <ion-col col-5>
+                <button ion-button outline style="width: 100%" (tap)="sell()" [disabled]="stockShares <= 0">
+                    <ion-icon name="add"></ion-icon>
+                </button>
+            </ion-col>
+        </ion-row>
+
+        <ion-row>
+            <ion-col col-4>
+                <button ion-button outline (tap)="playerReadyToResolve = false">
+                    <ion-icon name="return-left"></ion-icon>
+                </button>
+            </ion-col>
+            <ion-col col-8>
+                <button ion-button outline [disabled]="stockShares > 0 || isDone" style="width: 100%;" (tap)="onOk()">
+                    {{ "ACTIONS.DONE" | translate }}
+                </button>
+            </ion-col>
+        </ion-row>
+    </div>
+</div>

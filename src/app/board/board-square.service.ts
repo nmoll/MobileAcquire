@@ -52,6 +52,10 @@ export class BoardSquareService {
             .filter(tile => tile != null);
     }
 
+    getNumberOfTilesPlayed(): number {
+        return this.getBoardSquares().filter(square => !!square.tile).length;
+    }
+
     isPartOfHotelChain(square: BoardSquare): boolean {
         return !!square.tile && !!square.tile.hotelChain;
     }

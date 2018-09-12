@@ -6,6 +6,7 @@ import { BoardSquareService } from '../board/board-square.service';
 import { StockShareService } from '../stock-share/stock-share.service';
 import { NotificationService } from '../notification/notification.service';
 import { StockShare } from '../stock-share/stock-share';
+import { HistoryLogService } from '../history-log/history-log-service';
 
 @Injectable()
 export class AcquireService {
@@ -15,12 +16,14 @@ export class AcquireService {
         private playerService: PlayerService,
         private moveHandlerService: MoveHandlerService,
         private stockShareService: StockShareService,
-        private notificationService: NotificationService
+        private notificationService: NotificationService,
+        private historyLogService: HistoryLogService
     ) {}
 
     initGame(): void {
         this.playerService.initPlayerTiles();
         this.notificationService.init();
+        this.historyLogService.init();
         this.waitForNextMove();
     }
 

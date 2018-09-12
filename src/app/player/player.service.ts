@@ -43,7 +43,10 @@ export class PlayerService {
 
     rotateCurrentPlayer(): Promise<void> {
         let nextPlayer = this.getNextPlayerInList(this.getCurrentPlayer());
-        return this.promptForTurnStart(nextPlayer).then(() => this.gameService.currentGame.rotateCurrentPlayer());
+        return this.promptForTurnStart(nextPlayer).then(() => {
+            this.gameService.currentGame.rotateCurrentPlayer();
+            this.acquireEventService.notifyPlayerChange();
+        });
 
     }
 

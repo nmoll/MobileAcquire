@@ -1,0 +1,5 @@
+<button ion-button round outline large [disabled]="!canPlaceTile()" (tap)="placeTile()">
+    {{ "ACTIONS.PLACE_TILE" | translate }}
+</button>
+
+<div *ngIf="isFirstRound()">{{ "MESSAGE.PLACE_TILE_TIP" | translate }} </div>

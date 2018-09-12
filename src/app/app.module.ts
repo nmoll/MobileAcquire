@@ -30,25 +30,34 @@ import { ComputerMoveHandler } from './move/computer-move-handler';
 
 import { HotelChainDetailsComponent } from './hotel-chain/hotel-chain-details.component';
 import { HotelChainSelectModalComponent } from './hotel-chain/hotel-chain-select.modal';
-import { HotelChainStocksModalComponent } from './hotel-chain/hotel-chain-stocks.modal';
 import { HotelChainMergeStocksModalComponent } from './hotel-chain/hotel-chain-merge-stocks.modal';
 
 import { TimesPipe } from './utils/pipe/times-pipe';
 import { HttpLoaderFactory } from './utils/factory/http-loader-factory';
 import { BasicPlayerStrategy } from './strategy/basic-player-strategy';
 import { PlayerDeckComponent } from './player/player-deck.component';
+import { PlayerActionComponent } from './menu/action-menu.component';
+import { PlayerActionPlaceTileComponent } from './menu/action-menu-place-tile.component';
+import { HistoryLogService } from './history-log/history-log-service';
+import { PlayerActionHistoryLogComponent } from './menu/action-menu-history-log.component';
+import { PlayerActionBuyStocksComponent } from './menu/action-menu-buy-stocks.component';
+import { PlayerActionResolveMergeStocksComponent } from './menu/action-menu-resolve-merge-stocks.component';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     AcquireComponent,
+    PlayerActionComponent,
+    PlayerActionHistoryLogComponent,
+    PlayerActionPlaceTileComponent,
+    PlayerActionBuyStocksComponent,
+    PlayerActionResolveMergeStocksComponent,
     BoardComponent,
     GameCreateComponent,
     ScoreboardComponent,
     HotelChainDetailsComponent,
     HotelChainSelectModalComponent,
-    HotelChainStocksModalComponent,
     HotelChainMergeStocksModalComponent,
     PlayerDeckComponent,
     TimesPipe
@@ -70,9 +79,13 @@ import { PlayerDeckComponent } from './player/player-deck.component';
     MyApp,
     HomePage,
     AcquireComponent,
+    PlayerActionComponent,
+    PlayerActionHistoryLogComponent,
+    PlayerActionPlaceTileComponent,
+    PlayerActionBuyStocksComponent,
+    PlayerActionResolveMergeStocksComponent,
     HotelChainDetailsComponent,
     HotelChainSelectModalComponent,
-    HotelChainStocksModalComponent,
     HotelChainMergeStocksModalComponent,
     ScoreboardComponent,
     GameCreateComponent,
@@ -93,6 +106,7 @@ import { PlayerDeckComponent } from './player/player-deck.component';
     MoveHandlerService,
     StockShareService,
     NotificationService,
+    HistoryLogService,
     FirstPersonMoveHandler,
     ComputerMoveHandler,
     BasicPlayerStrategy

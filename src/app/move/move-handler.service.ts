@@ -218,6 +218,7 @@ export class MoveHandlerService {
         var promise;
         var numberOfShares = player.getStockShareForHotelChain(mergeResult.source).quantity;
         if (numberOfShares > 0) {
+            console.log('handleMergeStocks for player', player.name);
             promise = this.getMoveHandlerForPlayer(player).handleMergeStocks(player, mergeResult);
         } else {
             promise = new Promise((resolve) => {
@@ -225,6 +226,7 @@ export class MoveHandlerService {
             });
         }
         return promise.then(() => {
+            console.log('merge resolved');
             var nextPlayer = this.playerService.getNextPlayerInList(player);
             if (nextPlayer != mergeInitiator) {
                 return this.resolveMergeStocks(nextPlayer, mergeInitiator, mergeResult);

@@ -40,7 +40,7 @@ export class ComputerMoveHandler extends MoveHandler {
                     break;
                 }
             }
-        }, 1000);
+        }, 3000);
 
         return promise;
     }
@@ -100,6 +100,7 @@ export class ComputerMoveHandler extends MoveHandler {
             resolver = resolve;
         });
 
+        this.acquireEventService.notifyEndTurn();
         resolver();
 
         return promise;

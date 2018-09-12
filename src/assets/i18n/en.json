@@ -1,16 +1,17 @@
 {
     "APP_NAME": "Acquire",
     "ACTIONS": {
-        "BUY_STOCKS": "Buy Stocks",
         "SCOREBOARD": "Scoreboard",
         "YES": "Yes",
         "CANCEL": "Cancel",
         "DONE": "Done",
+        "OK": "OK",
         "END_GAME": "End Game",
         "END_TURN": "End Turn",
         "EXIT_GAME": "Exit Game",
         "MERGE": "Merge",
-        "PLACE_TILE": "Place Tile"
+        "PLACE_TILE": "Confirm",
+        "CONTINUE": "Continue"
     },
     "GAME": {
         "ADD_PLAYER": "Add Player",
@@ -24,6 +25,18 @@
         "MERGE_MESSAGE": "<strong>{{ source }}</strong> is merging into <strong>{{ destination }}</strong>. What would you like to do with your <strong>{{ source }}</strong> stocks?",
         "START_HOTEL_CHAIN": "Start Hotel Chain"
     },
+    "MERGE": {
+        "MESSAGE": "{{ source }} is merging into {{ destination }}. {{ source }} stocks need to be resolved.",
+        "KEEP": "Keep",
+        "KEPT": "Kept {{ shares }}",
+        "TRADE": "Trade (2:1)",
+        "TRADED": "Traded {{ shares }}",
+        "SELL": "Sell at ${{ price }}",
+        "SOLD": "Sold {{ shares }}",
+        "HAVE_SHARES": "Have {{ shares }} shares",
+        "HAS_SHARES": "Has {{ shares }} shares",
+        "STOCKS_TO_RESOLVE": "Stocks: {{ shares }}"
+    },
     "MESSAGE": {
         "GAME_ENDED_TIED_MESSAGE": "{{ winner }} tied for first place!",
         "GAME_ENDED_TITLE": "{{ player }} ended the game",
@@ -34,14 +47,16 @@
         "END_TURN_WITHOUT_STOCKS_TITLE": "No Stocks Purchased",
         "END_TURN_WITHOUT_STOCKS_MESSAGE": "You are about to end your turn without buying any stocks. Continue?",
         "PLAYER_TURN_START": "Ready, {{ player }}?",
-        "PLAYER_TURN_START_BUTTON": "I'm Ready"
+        "PLAYER_TURN_START_BUTTON": "I'm Ready",
+        "WAIT_FOR_COMPUTER_MESSAGE": "Waiting for {{ player }} to move..",
+        "PLACE_TILE_TIP": "Tip: Tap one of the highlighted tiles and then tap \"Confirm\""
     },
     "PLAYER": {
-        "AVAILABLE_CASH": "Available Cash",
         "NAME": "Name",
         "TYPE": "Type",
         "TYPE_HUMAN": "Human",
-        "TYPE_COMPUTER": "Computer"
+        "TYPE_COMPUTER": "Computer",
+        "SELF": "You"
     },
     "SCOREBOARD": {
         "TITLE": "Scoreboard"
@@ -49,10 +64,15 @@
     "STOCK": {
         "AVAILABLE": "Available",
         "HOLD": "Hold",
-        "PURCHASE_STOCKS": "Purchase Stocks",
         "REMOVE": "Remove",
         "SELL": "Sell",
         "STOCKS": "Stocks",
-        "TRADE": "Trade"
+        "TRADE": "Trade",
+        "BUY_STOCKS": "Buy Stocks"
+    },
+    "HISTORY_LOG": {
+        "RECENT_ACTION": "Recent Action:",
+        "PLAYED_TILE": "Played tile {{ tile }}",
+        "SHARES_BOUGHT": " Bought {{ quantity }}"
     }
 }

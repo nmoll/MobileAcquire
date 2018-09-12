@@ -46,8 +46,11 @@ export class HotelChain {
     }
 
     getStockPrice(): number {
+        return this.getStockPriceWithSize(this.tiles.length);
+    }
+
+    getStockPriceWithSize(size: number) {
         var price = 0;
-        var size = this.tiles.length;
         if (size < 6) {
             price = size * 100;
         } else if (size < 11) {
@@ -65,7 +68,7 @@ export class HotelChain {
     }
 
     getStartingStockPrice(): number {
-        return this.getBasePrice() + 100;
+        return this.getStockPriceWithSize(2);
     }
 
     addTile(tile: Tile): void {

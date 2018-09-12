@@ -26,6 +26,7 @@
 
 .acquire-game {
     background: black;
+    color: #d1d1d1;
     height: 100%;
 }
 
@@ -134,6 +135,7 @@
 
 .stock-selection.selected {
   background-color: whitesmoke;
+  border: 1px solid blue;
 }
 
 /* AMERICAN */
@@ -342,7 +344,6 @@
 }
 
 .player-deck {
-    color: #d1d1d1;
     text-align: center;
 }
 

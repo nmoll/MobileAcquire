@@ -1,0 +1,22 @@
+<div>
+
+    <div style="text-decoration: underline;">{{ "STOCK.BUY_STOCKS" | translate}}:</div>
+
+    <div class="money" style="margin-top: 10px">${{ getTotalPrice() }}</div>
+
+    <ion-row>
+        <ion-col col-6 *ngFor="let stockShare of stockShareOrder.stockShares">
+            <button [disabled]="!canPurchaseStock(stockShare)" (tap)="addStock(stockShare)"
+                ion-button outline style="width: 100%" 
+                class="hotel-chain-{{ stockShare.hotelChain.type }}" style="height: 50px; width: 100%; font-size: 1.5em;">
+                {{ stockShare.quantity }}
+            </button>
+        </ion-col>
+        <ion-col col-6>
+            <button ion-button outline (tap)="clearAll()" [disabled]="getTotalPrice() == 0"
+                style="width: 100%; height: 50px; position: relative; top: -3px; left: -2px;" >
+                <ion-icon name="trash"></ion-icon>
+            </button>
+        </ion-col>
+    </ion-row>
+</div>

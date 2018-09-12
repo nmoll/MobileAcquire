@@ -88,7 +88,6 @@ export class BasicPlayerStrategy implements PlayerStrategy {
         for (let scenario of scenarios) {
             value += scenario.calculateValue(player, hotelChain, currentOrder);
         }
-        console.log('player', player, 'hotelChain', hotelChain.name, 'value', value);
         return value;
     }
     

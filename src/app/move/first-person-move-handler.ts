@@ -12,8 +12,8 @@ import { HotelChainService } from '../hotel-chain/hotel-chain.service';
 import { AcquireEventService } from '../acquire/acquire-event.service';
 import { PlayerService } from '../player/player.service';
 import { HotelChainSelectModalComponent } from '../hotel-chain/hotel-chain-select.modal';
-import { HotelChainStocksModalComponent } from '../hotel-chain/hotel-chain-stocks.modal';
-import { HotelChainMergeStocksModalComponent } from '../hotel-chain/hotel-chain-merge-stocks.modal';
+import { PlayerAction } from '../player-action/player-action.enum';
+import { PlayerActionRequestResolveMergeStocks } from '../player-action/player-action-request-resolve-merge-stocks';
 
 @Injectable()
 export class FirstPersonMoveHandler extends MoveHandler {
@@ -114,16 +114,23 @@ export class FirstPersonMoveHandler extends MoveHandler {
             resolver = resolve;
         });
 
-        var modal = this.modalCtrl.create(HotelChainMergeStocksModalComponent, {
-          player: player,
-          mergeResult: mergeResult
+        // var modal = this.modalCtrl.create(HotelChainMergeStocksModalComponent, {
+        //   player: player,
+        //   mergeResult: mergeResult
+        // });
+
+        // modal.onDidDismiss(() => {
+        //   resolver();
+        // });
+        // modal.present();
+
+        console.log('sending player action request..');
+        let playerActionRequest = new PlayerActionRequestResolveMergeStocks(PlayerAction.RESOLVE_MERGE_STOCKS, player, mergeResult, () => {
+            console.log('finished request');
+            resolver();
         });
 
-        modal.onDidDismiss(() => {
-          resolver();
-        });
-        modal.present();
-
+        this.acquireEventService.requestPlayerAction(playerActionRequest);
 
         return promise;
     }
@@ -133,12 +140,8 @@ export class FirstPersonMoveHandler extends MoveHandler {
         var promise = new Promise(function (resolve) {
             resolver = resolve;
         });
-
-        var modal = this.modalCtrl.create(HotelChainStocksModalComponent);
-        modal.onDidDismiss(() => {
-            resolver();
-        });
-        modal.present();
+            
+        resolver();
 
         return promise;
     }

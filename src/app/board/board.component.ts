@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { PopoverController } from 'ionic-angular';
 
 import { HotelChainDetailsComponent } from '../hotel-chain/hotel-chain-details.component';
@@ -12,6 +12,7 @@ import { GameService } from '../game/game.service';
 
 import { PlayerType } from '../player/player';
 import { HotelChain } from '../hotel-chain/hotel-chain';
+import { PlayerAction } from '../player-action/player-action.enum';
 
 @Component({
     selector: 'board',
@@ -19,6 +20,9 @@ import { HotelChain } from '../hotel-chain/hotel-chain';
 })
 export class BoardComponent implements OnInit {
 
+    @Input() currentPlayerAction: PlayerAction;
+    squares: BoardSquare[];
+    
     constructor(
         private acquireEventService: AcquireEventService,
         private boardSquareService: BoardSquareService,
@@ -27,8 +31,6 @@ export class BoardComponent implements OnInit {
         private gameService: GameService,
         private popoverCtrl: PopoverController
     ) {}
-
-    squares: BoardSquare[];
 
     getBoardSquareClass(square: BoardSquare): string {
         var result = '';
@@ -48,7 +50,7 @@ export class BoardComponent implements OnInit {
         }
 
         if (player.playerType == PlayerType.FIRST_PERSON) {
-            if (player.hasTileForBoardSquareId(square.id) && !player.hasPlacedTile) {
+            if (player.hasTileForBoardSquareId(square.id) && !player.hasPlacedTile && this.currentPlayerAction == PlayerAction.PLACE_TILE) {
                 result += 'player-tile ';
                 var adjacentTiles = this.boardSquareService.getAdjacentTiles(square);
                 if (!this.moveHandlerService.isTilePlayable(adjacentTiles)) {
